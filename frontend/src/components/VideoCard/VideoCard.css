@@ -1,0 +1,28 @@
+.card{
+  width: 350px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+}
+
+.title{
+  padding-top: 1.5rem ;
+  padding-bottom: 1.5rem;
+}
+
+.thumbnail{
+  width: 350px;
+  height: 200px;
+}
+
+@media screen and (max-width: 700px) {
+  .card{
+    width: 100%;
+    padding: 0%;
+  }
+  .thumbnail{
+    width: 100%;
+  }
+}
