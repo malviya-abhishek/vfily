@@ -1,0 +1,17 @@
+.playerBlock {
+	display: grid;
+	grid-template-columns: 65% 35%;
+}
+
+
+.suggestions{
+	padding-top: 30px;
+	margin: auto;
+}
+
+@media screen and (max-width: 1040px) {
+	.playerBlock {
+		display: grid;
+		grid-template-columns: 100%;
+	}
+}

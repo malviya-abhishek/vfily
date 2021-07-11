@@ -1,0 +1,34 @@
+.playerWrapper{
+  margin:10px;
+}
+
+.Player{
+	margin-top: 30px;
+  padding: 0px 10px;
+	width: 100%;
+	/* height: 100%; */
+}
+
+
+.title{
+  padding-left: 20px;
+  color: red;
+  font-size: xx-large;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 730px) {
+	.playerWrapper{
+    margin: 0;
+  }
+  .Player{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+  }
+  .title{
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}

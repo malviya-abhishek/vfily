@@ -4,12 +4,18 @@
   grid-template-columns: 25% 25% 25% 25%;
 }
 
-@media screen and (max-width:960px) {
+@media screen and (max-width:1430px) {
+  .container{
+    grid-template-columns: 33% 33% 33%;
+  }
+}
+
+@media screen and (max-width:1090px) {
   .container{
     grid-template-columns: 50% 50%;
   }
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 730px) {
   .container{
     grid-template-columns: 100%;
     margin: 0px ;

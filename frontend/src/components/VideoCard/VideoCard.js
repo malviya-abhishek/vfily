@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./VideoCard.css";
+import classes from  "./VideoCard.module.css";
 
-class VideoCard extends Component {
-	render() {
-		return (
-			<Link to={`/video/${this.props.id}`} >
-				<div className="card">
+
+function VideoCard(props) {
+	return (
+		<Link to={`/video/${props.id}`} style={{textDecoration:"none"}} >
+				<div className= {classes.card} >
 					<img
-						className="thumbnail"
-						src="./images/default.png"
+						className= {classes.thumbnail} 
+						src={props.thumbnail}
 						alt="Video"
 					></img>
-					<h3 className="title">Title Here</h3>
+					<h3 className={ classes.title}>{props.title + ' ' +  props.id }</h3>
 				</div>
 			</Link>
-		);
-	}
+	);
 }
+
 export default VideoCard;
