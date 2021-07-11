@@ -12,10 +12,8 @@ class Navbar extends Component {
 	render() {
 		return (
 			<nav className="NavbarItems">
-				<Link to="/">
-					<h1 className="navbar-logo">
-						Vfily <i className="fab fa-react"></i>{" "}
-					</h1>
+				<Link to="/" style={{"textDecoration": "none"}}>
+					<h1 className="navbar-logo">Vfily</h1>
 				</Link>
 				<div className="menu-icon" onClick={this.handleClick}>
 					<i
