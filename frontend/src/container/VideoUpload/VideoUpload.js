@@ -30,7 +30,6 @@ class VideoUpload extends Component {
 	};
 
 	handleUpload = (event) => {
-
 		console.log("hello");
 
 		event.preventDefault();
@@ -40,7 +39,11 @@ class VideoUpload extends Component {
 		const data = new FormData();
 
 		data.append("title", this.state.title);
-    data.append("file", this.state.selectedFile, this.state.selectedFile.name);
+		data.append(
+			"file",
+			this.state.selectedFile,
+			this.state.selectedFile.name
+		);
 
 		// data.append("file", this.state.selectedFile);
 
@@ -71,46 +74,67 @@ class VideoUpload extends Component {
 			});
 	};
 
-	changeFileHandler = event => {
-    this.setState({
-      selectedFile: event.target.files[0],
-      loaded: 0,
-      message: event.target.files[0]
-        ? event.target.files[0].name
-        : this.state.defaultmessage
-    });
-  };
+	changeFileHandler = (event) => {
+		this.setState({
+			selectedFile: event.target.files[0],
+			loaded: 0,
+			message: event.target.files[0]
+				? event.target.files[0].name
+				: this.state.defaultmessage,
+		});
+	};
 
 	render() {
 		return (
-			<div>
-				<p>Upload new video</p>
-				<h1> Hello {this.state.defaultmessage} </h1>
-				<form>
-					<lable>Title</lable>
-					<input
-						type="text"
-						name="title"
-						value={this.state.video.title}
-						onChange={this.changeHandler}
-					/>
-					<lable>Description</lable>
-					<textarea
-						type="textarea"
-						name="description"
-						value={this.state.video.description}
-						onChange={this.changeHandler}
-					/>
-					<lable>Video</lable>
-					<input
-						type="file"
-						name="file"
-						onChange={this.changeFileHandler}
-					/>
-				</form>
-				<button className="submit" onClick={this.handleUpload}>
-					Upload
-				</button>
+			<div style={{ marginTop: "50px" }}>
+				<div className={classes.wrapper}>
+					<h1 className={classes.title}>Upload new video</h1>
+					<p className={classes.status}>
+						{" "}
+						Status {this.state.defaultmessage}{" "}
+					</p>
+					<form className={classes.form}>
+						<div>
+							<input
+								className={classes["input-title"]}
+								type="text"
+								name="title"
+								value={this.state.video.title}
+								onChange={this.changeHandler}
+								placeholder=" Enter title"
+							/>
+						</div>
+						<div>
+							<textarea
+								className={classes["input-description"]}
+								type="textarea"
+								name="description"
+								value={this.state.video.description}
+								onChange={this.changeHandler}
+								placeholder="Enter Description"
+							/>
+						</div>
+						<div>
+							<lable className={classes["lable-file"]}>
+								<input
+									className={classes["input-file"]}
+									type="file"
+									name="file"
+									onChange={this.changeFileHandler}
+									placeholder="Enter File"
+								/>
+								Video
+							</lable>
+						</div>
+						<button
+							type="submit"
+							className={classes["sub-btn"]}
+							onClick={this.handleUpload}
+						>
+							Upload
+						</button>
+					</form>
+				</div>
 			</div>
 		);
 	}
