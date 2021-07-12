@@ -12,7 +12,7 @@ function VideoCard(props) {
 						src={props.thumbnail}
 						alt="Video"
 					></img>
-					<h3 className={ classes.title}>{props.title + ' ' +  props.id }</h3>
+					<h3 className={ classes.title}>{props.title}</h3>
 				</div>
 			</Link>
 	);

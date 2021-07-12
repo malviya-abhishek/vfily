@@ -12,7 +12,7 @@ function App() {
 			<Navbar />
 			<Switch>
 				<Route exact path="/" component={VideoPallet} />
-				<Route exact path="/video/:id" component={VideoPlayer} />
+				<Route exact path="/video/:videoId" component={VideoPlayer} />
 				<Route exact path="/upload" component={VideoUpload} />
 			</Switch>
 		</div>
@@ -20,3 +20,4 @@ function App() {
 }
 
 export default App;
+

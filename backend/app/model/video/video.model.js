@@ -7,12 +7,15 @@ const videoSchema = new Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
 		},
-		name: {
+		title: {
 			type: String,
 		},
     description:{
       type:String
     },
+		url:{
+			type:String
+		}
 	},
 	{ timestamps: true }
 );
@@ -43,4 +46,25 @@ exports.findById = (id) => {
 exports.createVideo = (videoData) => {
 	const video = new Video(videoData);
 	return video.save();
+};
+
+exports.list = (perPage, page) => {
+	return new Promise((resolve, reject) => {
+		Video.find()
+			.limit(perPage)
+			.skip(perPage * page)
+			.exec(function (err, books) {
+				if (err) reject(err);
+				else {
+					const newVideo = [];
+					books.forEach((book) => {
+						book = book.toJSON();
+						delete book._id;
+						delete book.__v;
+						newVideo.push(book);
+					});
+					resolve(newVideo);
+				}
+			});
+	});
 };
