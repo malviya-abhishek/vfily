@@ -1,9 +1,11 @@
+require('dotenv').config();
 const express = require("express");
 const busboy = require("connect-busboy");
-
+const cors = require('cors')
 
 const app = express();
 
+app.use(cors());
 app.use(express.static('public'))
 
 app.use(
@@ -12,6 +14,7 @@ app.use(
 	})
 );
 
+app.use(express.json());
 
 app.route("/a").get((req, res) => {
 	res.writeHead(200, { "Content-Type": "text/html" });
@@ -24,9 +27,10 @@ app.route("/a").get((req, res) => {
 	return res.end();
 });
 
+require('./routes/routes.api.user').routesConfig(app);
 require('./routes/routes.api.video').routesConfig(app);
 
 
-app.listen(3030, () => {
-	console.log("Server started");
+app.listen(process.env.PORT, () => {
+	console.log("Server started at", process.env.PORT);
 });

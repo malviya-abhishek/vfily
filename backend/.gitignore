@@ -1,3 +1,4 @@
 rough
 node_modules
 public/video/*
+.env

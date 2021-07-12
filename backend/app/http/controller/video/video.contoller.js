@@ -24,7 +24,10 @@ exports.video = (req, res)=>{
     res.status(400).send("Requires Range header");
   }
 
-  const videoPath = path.join(__dirname, '../../../../public/video/bigBuck.mp4' );
+  // const videoPath = path.join(__dirname, '../../../../public/video/bigBuck.mp4' );
+  
+  const videoPath = path.join(__dirname, '../../../../public/video/1626031130139-991020255MISSION IMPOSSIBLE 5  (HOLLY).mkv' );
+
   const videoSize = fs.statSync( videoPath ).size;
 
   const CHUNK_SIZE = 10 ** 6; // 1MB
