@@ -12,7 +12,7 @@
 }
 
 .status {
-	font-size: xx-large;
+	font-size: large;
 	margin-top: 20px;
 }
 
@@ -36,17 +36,27 @@
 	border: transparent;
 }
 
-.input-file {
-	display: none;
+input[type="file"] {
+  display: none;
 }
 
 .lable-file {
+  border: 1px solid #ccc;
+  display: inline-block;
+  cursor: pointer;
+  width: 100%;
   margin-top: 20px;
-	border: 1px solid #ccc;
-	display: inline-block;
-	padding: 6px 12px;
-	cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: large;
 }
+
+.input-file {
+	display: hidden;
+  margin-left: 10px;
+}
+
 
 .sub-btn {
 	font-size: large;

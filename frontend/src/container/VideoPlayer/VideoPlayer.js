@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
 import Player from "../../components/Player/Player";
-import VideoCard from "../../components/VideoCard/VideoCard";
 
 import classes from "./VideoPlayer.module.css";
 

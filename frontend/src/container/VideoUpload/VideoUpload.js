@@ -6,62 +6,64 @@ const endpoint = "http://localhost:3030/upload";
 
 class VideoUpload extends Component {
 	state = {
-		video: {
-			title: "",
-			description: "",
-			file: null,
-			loaded: 0,
-			message: "Choose a file...",
-			defaultmessage: "Choose a file...",
-			uploading: false,
-		},
+		title: "",
+		description: "",
+		file: null,
+
+		loaded: 0,
+
+		message: "Enter detail",
+		defaultmessage: "Enter detail",
+
+		uploading: false,
 	};
 
 	changeHandler = (e) => {
+		if(this.state.uploading)
+			return;
+
 		const name = e.target.name;
 		const value = e.target.value;
 		this.setState({
-			video: {
-				...this.state.video,
-				[name]: value,
-			},
+			...this.state,
+			[name]: value,
+			message:
+				this.state.file && this.state.title && this.state.description
+					? "Ready to Upload"
+					: this.state.defaultmessage,
 		});
-		console.log(name, value);
 	};
 
 	handleUpload = (event) => {
-		console.log("hello");
-
 		event.preventDefault();
-		// if (!(this.state.title && this.state.description && this.state.file))
-		// 	return;
+
+		if (!(this.state.title && this.state.description && this.state.file) || this.state.uploading )
+			return;
+
+		this.setState({uploading:true});
 
 		const data = new FormData();
 
 		data.append("title", this.state.title);
-		data.append(
-			"file",
-			this.state.selectedFile,
-			this.state.selectedFile.name
-		);
-
-		// data.append("file", this.state.selectedFile);
-
 		data.append("description", this.state.description);
+
+		data.append("file", this.state.file, this.state.file.name);
 
 		axios
 			.post(endpoint, data, {
 				onUploadProgress: (ProgressEvent) => {
 					this.setState({
-						loaded: Math.round(
+						message:( Math.round(
 							(ProgressEvent.loaded / ProgressEvent.total) * 100
-						),
+						) + " % completed" ),
 					});
 				},
 			})
 			.then((res) => {
 				this.setState({
-					selectedFile: null,
+					file: null,
+					title:"",
+					description:"",
 					message: "Uploaded successfully",
 					uploading: false,
 				});
@@ -75,12 +77,18 @@ class VideoUpload extends Component {
 	};
 
 	changeFileHandler = (event) => {
+		if(this.state.uploading)
+			return;
+
 		this.setState({
-			selectedFile: event.target.files[0],
+			file: event.target.files[0],
 			loaded: 0,
-			message: event.target.files[0]
-				? event.target.files[0].name
-				: this.state.defaultmessage,
+			message:
+				event.target.files[0] &&
+				this.state.title &&
+				this.state.description
+					? "Ready to Upload"
+					: this.state.defaultmessage,
 		});
 	};
 
@@ -90,8 +98,11 @@ class VideoUpload extends Component {
 				<div className={classes.wrapper}>
 					<h1 className={classes.title}>Upload new video</h1>
 					<p className={classes.status}>
-						{" "}
-						Status {this.state.defaultmessage}{" "}
+						Status:-{" "}
+						{this.state.message.substr(
+							0,
+							Math.min(16, this.state.message.length)
+						)}
 					</p>
 					<form className={classes.form}>
 						<div>
@@ -99,7 +110,7 @@ class VideoUpload extends Component {
 								className={classes["input-title"]}
 								type="text"
 								name="title"
-								value={this.state.video.title}
+								value={this.state.title}
 								onChange={this.changeHandler}
 								placeholder=" Enter title"
 							/>
@@ -109,23 +120,30 @@ class VideoUpload extends Component {
 								className={classes["input-description"]}
 								type="textarea"
 								name="description"
-								value={this.state.video.description}
+								value={this.state.description}
 								onChange={this.changeHandler}
 								placeholder="Enter Description"
 							/>
 						</div>
+
 						<div>
-							<lable className={classes["lable-file"]}>
+							<label className={classes["lable-file"]}>
 								<input
-									className={classes["input-file"]}
 									type="file"
-									name="file"
 									onChange={this.changeFileHandler}
-									placeholder="Enter File"
 								/>
-								Video
-							</lable>
+								{this.state.file
+									? this.state.file.name.substr(
+											0,
+											Math.min(
+												16,
+												this.state.message.length
+											)
+									  )
+									: "Select a file"}
+							</label>
 						</div>
+
 						<button
 							type="submit"
 							className={classes["sub-btn"]}
