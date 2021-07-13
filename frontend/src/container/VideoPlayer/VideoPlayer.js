@@ -9,7 +9,8 @@ class VideoPlayer extends Component {
 		list: [],
 		url: null,
 		title: "",
-		description:""
+		description:"",
+		thumbnail:""
 	};
 
 	componentDidMount() {
@@ -22,7 +23,8 @@ class VideoPlayer extends Component {
 				this.setState({
 					url: "http://localhost:3030/video/" + result.data.url,
 					title: result.data.title,
-					description: result.data.description
+					description: result.data.description,
+					thumbnail: "http://localhost:3030/images/" + result.data.thumbnail
 				});
 			})
 			.catch((err) => {
@@ -31,11 +33,9 @@ class VideoPlayer extends Component {
 	}
 
 	render() {
-		// console.log("[HEllO props]", this.props.match.params.videoId);
-
 		return (
 			<div className={classes.playerBlock}>
-				<Player title={this.state.title} url={this.state.url} description={this.state.description} />
+				<Player title={this.state.title} url={this.state.url} description={this.state.description} thumbnail={this.state.thumbnail} />
 				<div className={classes.suggestions}>{this.state.list}</div>
 			</div>
 		);

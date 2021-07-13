@@ -3,41 +3,58 @@ const fs = require("fs-extra");
 const VideoModel = require("../../../model/video/video.model");
 
 exports.upload = (req, res) => {
-
 	const newVideo = {};
-
-	const uploadPath = path.join(__dirname, "../../../../public/video");
 
 	req.pipe(req.busboy);
 
-	req.busboy.on("field", (fieldname, value) =>{
+	req.busboy.on("field", (fieldname, value) => {
 		newVideo[fieldname] = value;
 	});
 
-
 	req.busboy.on("file", (fieldname, file, filename) => {
+		if (fieldname === "thumbnail") {
 
 
-		filename =
-			Date.now() + "-" + Math.round(Math.random() * 1e9) + filename;
-		const fstream = fs.createWriteStream(path.join(uploadPath, filename));
+			const uploadPath = path.join(
+				__dirname,
+				"../../../../public/images"
+			);
 
-		file.pipe(fstream);
-		fstream.on("close", () => {
+			filename =
+				Date.now() + "-" + Math.round(Math.random() * 1e9) + filename;
 
-			newVideo.url = filename
+			const fstream = fs.createWriteStream(
+				path.join(uploadPath, filename)
+			);
 
-			VideoModel.createVideo(newVideo)
-				.then((result) => {
-					res.sendStatus(202);
-				})
-				.catch((err) => {
-					res.sendStatus(500);
-				});
-		});
+			file.pipe(fstream);
+			fstream.on("close", () => {
+				newVideo.thumbnail = filename;
+			});
+
+		} else {
+			const uploadPath = path.join(__dirname, "../../../../public/video");
+
+			filename =
+				Date.now() + "-" + Math.round(Math.random() * 1e9) + filename;
+			const fstream = fs.createWriteStream(
+				path.join(uploadPath, filename)
+			);
+
+			file.pipe(fstream);
+			fstream.on("close", () => {
+				newVideo.url = filename;
+
+				VideoModel.createVideo(newVideo)
+					.then((result) => {
+						res.sendStatus(202);
+					})
+					.catch((err) => {
+						res.sendStatus(500);
+					});
+			});
+		}
 	});
-
-
 };
 
 exports.videos = (req, res) => {
@@ -62,20 +79,17 @@ exports.home = (req, res) => {
 };
 
 exports.video = (req, res) => {
-
 	console.log("[Video link]", req.params);
 
-
 	const range = req.headers.range;
-	
+
 	if (!range) {
 		res.status(400).send("Requires Range header");
 	}
 
-	const videoPath = path.join(__dirname, req.params.videoPath)
+	const videoPath = path.join(__dirname, req.params.videoPath);
 
 	// __dirname, '../../../../public/video/1626031130139-991020255MISSION IMPOSSIBLE 5  (HOLLY).mkv'
-	
 
 	const videoSize = fs.statSync(videoPath).size;
 
@@ -98,14 +112,20 @@ exports.video = (req, res) => {
 	videoStream.pipe(res);
 };
 
-
-
 exports.videoLink = (req, res) => {
 	VideoModel.findById(req.params.videoId)
 		.then((result) => {
-			return res.send( result );
+			return res.send(result);
 		})
 		.catch((err) => {
 			return res.sendStatus(404);
 		});
 };
+
+
+
+// exports.thumbnail = (req, res) =>{
+// 	if(req.params.thumbnail){
+// 		return res.send( {thumbnail : '/images/' + req.params.thumbnail } )
+// 	}
+// }

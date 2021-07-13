@@ -17,7 +17,6 @@ class VideoUpload extends Component {
 		message: "Enter detail",
 		defaultmessage: "Enter detail",
 
-
 		uploading: false,
 	};
 
@@ -43,7 +42,12 @@ class VideoUpload extends Component {
 		event.preventDefault();
 
 		if (
-			!(this.state.title && this.state.thumbnail && this.state.description && this.state.file) ||
+			!(
+				this.state.title &&
+				this.state.thumbnail &&
+				this.state.description &&
+				this.state.video
+			) ||
 			this.state.uploading
 		)
 			return;
@@ -54,8 +58,13 @@ class VideoUpload extends Component {
 
 		data.append("title", this.state.title);
 		data.append("description", this.state.description);
+		data.append(
+			"thumbnail",
+			this.state.thumbnail,
+			this.state.thumbnail.name
+		);
+
 		data.append("video", this.state.video, this.state.video.name);
-		data.append("thumbnail", this.state.thumbnail, this.state.thumbnail.name);
 
 		axios
 			.post(endpoint, data, {
@@ -130,6 +139,7 @@ class VideoUpload extends Component {
 						)}
 					</p>
 					<form className={classes.form}>
+						{/* Title */}
 						<div>
 							<input
 								className={classes["input-title"]}
@@ -140,6 +150,9 @@ class VideoUpload extends Component {
 								placeholder=" Enter title"
 							/>
 						</div>
+						{/* Title end */}
+
+						{/* Description */}
 						<div>
 							<textarea
 								className={classes["input-description"]}
@@ -150,6 +163,7 @@ class VideoUpload extends Component {
 								placeholder="Enter Description"
 							/>
 						</div>
+						{/* Description end */}
 
 						{/* Video */}
 						<div>
@@ -163,7 +177,7 @@ class VideoUpload extends Component {
 											0,
 											Math.min(
 												16,
-												this.state.video.length
+												this.state.video.name.length
 											)
 									  )
 									: "Select a Video"}
@@ -178,12 +192,12 @@ class VideoUpload extends Component {
 									type="file"
 									onChange={this.changeThumbnailHandler}
 								/>
-								{this.state.file
+								{this.state.thumbnail
 									? this.state.thumbnail.name.substr(
 											0,
 											Math.min(
 												16,
-												this.state.message.length
+												this.state.thumbnail.name.length
 											)
 									  )
 									: "Select a Thumbnail"}

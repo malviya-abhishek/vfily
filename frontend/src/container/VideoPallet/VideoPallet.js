@@ -12,13 +12,14 @@ class VideoPallet extends Component {
 		axios
 			.get("http://localhost:3030/videos")
 			.then((list) => {
+				console.log(list);
 				const temp = [];
 				list.data.forEach((element) => {
 					temp.push(
 						<VideoCard
 							key={element.id}
 							id={element.id}
-							thumbnail={element.thumbnail}
+							thumbnail={ "http://localhost:3030/images/" +  element.thumbnail}
 							title={element.title}
 						/>
 					);

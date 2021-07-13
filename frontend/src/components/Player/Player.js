@@ -7,7 +7,7 @@ function Player(props) {
 	return (
 		<div className={classes.playerWrapper}>
 			{props.url ? (
-				<video className={classes.Player} controls>
+				<video className={classes.Player} controls poster={props.thumbnail}>
 					<source src={props.url} type="video/mp4" />
 					<source src={props.url} type="video/ogg" />
 				</video>

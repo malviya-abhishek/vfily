@@ -7,3 +7,4 @@ exports.routesConfig = function (app) {
 	app.get("/video/:videoPath", [VideoController.video]);
 	app.post("/upload", [VideoController.upload]);
 };
+

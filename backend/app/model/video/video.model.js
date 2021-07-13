@@ -15,6 +15,9 @@ const videoSchema = new Schema(
     },
 		url:{
 			type:String
+		},
+		thumbnail:{
+			type:String
 		}
 	},
 	{ timestamps: true }
@@ -53,15 +56,15 @@ exports.list = (perPage, page) => {
 		Video.find()
 			.limit(perPage)
 			.skip(perPage * page)
-			.exec(function (err, books) {
+			.exec(function (err, videos) {
 				if (err) reject(err);
 				else {
 					const newVideo = [];
-					books.forEach((book) => {
-						book = book.toJSON();
-						delete book._id;
-						delete book.__v;
-						newVideo.push(book);
+					videos.forEach((video) => {
+						video = video.toJSON();
+						delete video._id;
+						delete video.__v;
+						newVideo.push(video);
 					});
 					resolve(newVideo);
 				}
