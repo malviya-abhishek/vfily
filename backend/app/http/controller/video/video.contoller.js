@@ -4,22 +4,30 @@ const VideoModel = require("../../../model/video/video.model");
 
 exports.upload = (req, res) => {
 
-	console.log("[upload]", req);
+	const newVideo = {};
 
 	const uploadPath = path.join(__dirname, "../../../../public/video");
+
 	req.pipe(req.busboy);
 
+	req.busboy.on("field", (fieldname, value) =>{
+		newVideo[fieldname] = value;
+	});
+
+
 	req.busboy.on("file", (fieldname, file, filename) => {
+
+
 		filename =
 			Date.now() + "-" + Math.round(Math.random() * 1e9) + filename;
 		const fstream = fs.createWriteStream(path.join(uploadPath, filename));
+
 		file.pipe(fstream);
 		fstream.on("close", () => {
-			VideoModel.createVideo({
-				title: "name",
-				description: "this is a video",
-				url: filename,
-			})
+
+			newVideo.url = filename
+
+			VideoModel.createVideo(newVideo)
 				.then((result) => {
 					res.sendStatus(202);
 				})
@@ -28,6 +36,8 @@ exports.upload = (req, res) => {
 				});
 		});
 	});
+
+
 };
 
 exports.videos = (req, res) => {

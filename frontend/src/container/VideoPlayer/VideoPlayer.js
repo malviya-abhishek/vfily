@@ -9,6 +9,7 @@ class VideoPlayer extends Component {
 		list: [],
 		url: null,
 		title: "",
+		description:""
 	};
 
 	componentDidMount() {
@@ -17,10 +18,11 @@ class VideoPlayer extends Component {
 				`http://localhost:3030/videos/${this.props.match.params.videoId}`
 			)
 			.then((result) => {
-				console.log(["ComponentDIDmount"], result.data.url);
+				console.log("[ComponentDIDmount]", result.data);
 				this.setState({
 					url: "http://localhost:3030/video/" + result.data.url,
-					title: result.data.name,
+					title: result.data.title,
+					description: result.data.description
 				});
 			})
 			.catch((err) => {
@@ -29,11 +31,11 @@ class VideoPlayer extends Component {
 	}
 
 	render() {
-		console.log(["HEllO props"], this.props.match.params.videoId);
+		// console.log("[HEllO props]", this.props.match.params.videoId);
 
 		return (
 			<div className={classes.playerBlock}>
-				<Player title={this.state.title} url={this.state.url} />
+				<Player title={this.state.title} url={this.state.url} description={this.state.description} />
 				<div className={classes.suggestions}>{this.state.list}</div>
 			</div>
 		);

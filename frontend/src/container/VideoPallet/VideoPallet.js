@@ -19,7 +19,7 @@ class VideoPallet extends Component {
 							key={element.id}
 							id={element.id}
 							thumbnail={element.thumbnail}
-							title={element.name}
+							title={element.title}
 						/>
 					);
 				});

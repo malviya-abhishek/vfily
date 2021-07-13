@@ -8,19 +8,21 @@ class VideoUpload extends Component {
 	state = {
 		title: "",
 		description: "",
-		file: null,
+
+		video: null,
+		thumbnail: null,
 
 		loaded: 0,
 
 		message: "Enter detail",
 		defaultmessage: "Enter detail",
 
+
 		uploading: false,
 	};
 
 	changeHandler = (e) => {
-		if(this.state.uploading)
-			return;
+		if (this.state.uploading) return;
 
 		const name = e.target.name;
 		const value = e.target.value;
@@ -28,7 +30,10 @@ class VideoUpload extends Component {
 			...this.state,
 			[name]: value,
 			message:
-				this.state.file && this.state.title && this.state.description
+				this.state.video &&
+				this.state.thumbnail &&
+				this.state.title &&
+				this.state.description
 					? "Ready to Upload"
 					: this.state.defaultmessage,
 		});
@@ -37,33 +42,38 @@ class VideoUpload extends Component {
 	handleUpload = (event) => {
 		event.preventDefault();
 
-		if (!(this.state.title && this.state.description && this.state.file) || this.state.uploading )
+		if (
+			!(this.state.title && this.state.thumbnail && this.state.description && this.state.file) ||
+			this.state.uploading
+		)
 			return;
 
-		this.setState({uploading:true});
+		this.setState({ uploading: true });
 
 		const data = new FormData();
 
 		data.append("title", this.state.title);
 		data.append("description", this.state.description);
-
-		data.append("file", this.state.file, this.state.file.name);
+		data.append("video", this.state.video, this.state.video.name);
+		data.append("thumbnail", this.state.thumbnail, this.state.thumbnail.name);
 
 		axios
 			.post(endpoint, data, {
 				onUploadProgress: (ProgressEvent) => {
 					this.setState({
-						message:( Math.round(
-							(ProgressEvent.loaded / ProgressEvent.total) * 100
-						) + " % completed" ),
+						message:
+							Math.round(
+								(ProgressEvent.loaded / ProgressEvent.total) *
+									100
+							) + " % completed",
 					});
 				},
 			})
 			.then((res) => {
 				this.setState({
 					file: null,
-					title:"",
-					description:"",
+					title: "",
+					description: "",
 					message: "Uploaded successfully",
 					uploading: false,
 				});
@@ -76,15 +86,30 @@ class VideoUpload extends Component {
 			});
 	};
 
-	changeFileHandler = (event) => {
-		if(this.state.uploading)
-			return;
+	changeVideoHandler = (event) => {
+		if (this.state.uploading) return;
 
 		this.setState({
-			file: event.target.files[0],
+			video: event.target.files[0],
 			loaded: 0,
 			message:
 				event.target.files[0] &&
+				this.state.thumbnail &&
+				this.state.title &&
+				this.state.description
+					? "Ready to Upload"
+					: this.state.defaultmessage,
+		});
+	};
+
+	changeThumbnailHandler = (event) => {
+		if (this.state.uploading) return;
+
+		this.setState({
+			thumbnail: event.target.files[0],
+			message:
+				event.target.files[0] &&
+				this.state.video &&
 				this.state.title &&
 				this.state.description
 					? "Ready to Upload"
@@ -126,23 +151,45 @@ class VideoUpload extends Component {
 							/>
 						</div>
 
+						{/* Video */}
 						<div>
 							<label className={classes["lable-file"]}>
 								<input
 									type="file"
-									onChange={this.changeFileHandler}
+									onChange={this.changeVideoHandler}
+								/>
+								{this.state.video
+									? this.state.video.name.substr(
+											0,
+											Math.min(
+												16,
+												this.state.video.length
+											)
+									  )
+									: "Select a Video"}
+							</label>
+						</div>
+						{/* Video end */}
+
+						{/* Thumbnail  */}
+						<div>
+							<label className={classes["lable-file"]}>
+								<input
+									type="file"
+									onChange={this.changeThumbnailHandler}
 								/>
 								{this.state.file
-									? this.state.file.name.substr(
+									? this.state.thumbnail.name.substr(
 											0,
 											Math.min(
 												16,
 												this.state.message.length
 											)
 									  )
-									: "Select a file"}
+									: "Select a Thumbnail"}
 							</label>
 						</div>
+						{/* Thumbnail end  */}
 
 						<button
 							type="submit"
