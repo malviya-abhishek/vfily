@@ -1,0 +1,48 @@
+.wrapper {
+	color: white;
+	margin: auto;
+	padding: 20px;
+	width: fit-content;
+	background-color: rgb(77, 63, 252);
+	border-radius: 20px;
+}
+
+.title {
+	text-align: center;
+}
+
+.input-title {
+	font-size: large;
+	margin-top: 30px;
+	width: 100%;
+	padding: 5px;
+	border-radius: 5px;
+	border: transparent;
+}
+
+.status {
+	font-size: large;
+	margin-top: 20px;
+}
+
+.sub-btn {
+	font-size: large;
+	margin-top: 20px;
+	padding: 10px;
+	width: 100%;
+	border-radius: 20px;
+	border: transparent;
+	background-color: rgb(120, 120, 252, 0.5);
+	color: white;
+}
+
+.link{
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  font-size: large;
+	width: 100%;
+  /* border: black solid 2px; */
+	color: white;
+  margin-top: 20px;
+}

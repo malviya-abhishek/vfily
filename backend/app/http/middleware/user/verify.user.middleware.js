@@ -29,7 +29,7 @@ exports.isVaildUserFields = async (req, res, next) => {
 	const result = await UserModel.findByEmail(req.body.email);
 
 	if (result.length !== 0)
-		return res.status(400).send({ error: "email already used" });
+		return res.status(400).send("email already user");
 
 	next();
 };

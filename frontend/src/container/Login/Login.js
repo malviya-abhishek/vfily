@@ -1,17 +1,19 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import classes from "./Signup.module.css";
+import { Link, Redirect } from "react-router-dom";
+import classes from "./Login.module.css";
 
-class Signup extends Component {
+
+
+const endpoint = "http://localhost:3030/auth";
+
+class Login extends Component {
 	state = {
 		email: "",
-		firstName: "",
-		lastName: "",
 		password: "",
-		passwordRepeat: "",
 		message: "Please enter details",
 		defaultmessage: "Please enter details",
+		logged:0
 	};
 
 	changeHandler = (e) => {
@@ -24,14 +26,6 @@ class Signup extends Component {
 	};
 
 	validEntry() {
-		if (!this.state.firstName) {
-			this.setState({ message: "Enter name" });
-			return false;
-		}
-		if (!this.state.lastName) {
-			this.setState({ message: "Enter last name" });
-			return false;
-		}
 		if (!this.state.email) {
 			this.setState({ message: "Enter email" });
 			return false;
@@ -52,14 +46,6 @@ class Signup extends Component {
 			this.setState({ message: "Enter password" });
 			return false;
 		}
-		if (!this.state.passwordRepeat) {
-			this.setState({ message: "Enter password again" });
-			return false;
-		}
-		if (this.state.password !== this.state.passwordRepeat) {
-			this.setState({ message: "Passwor not matched" });
-			return false;
-		}
 		return true;
 	}
 
@@ -69,62 +55,34 @@ class Signup extends Component {
 		if (!this.validEntry()) return;
 
 		const data = {
-			firstName: this.state.firstName,
-			lastName: this.state.lastName,
 		  email:this.state.email,
 		  password:this.state.password
 		}
 
-		// const data = new FormData();
-
-		// data.append("password", this.state.password);
-		// data.append("email", this.state.email);
-		// data.append("lastName", this.state.lastName);
-		// data.append("firstName", this.state.firstName);
-
 		axios
-			.post("localhost:3030/users", data)
+			.post(endpoint, data)
 			.then((result) => {
-				console.log(result);
+				localStorage.setItem('token', result.data.accessToken);
+				localStorage.setItem('refreshToken', result.data.refreshToken);
+				this.setState({logged:1})
 			})
 			.catch((err) => {
-				console.log(err);
+				console.log( "[User request]" ,err.response);
 			});
 	};
 
 	render() {
+
+		if(this.state.logged === 1)
+			return <Redirect to="/" />
+
 		return (
 			<div style={{ marginTop: "50px" }}>
 				<div className={classes.wrapper}>
-					<h1 className={classes.title}>Sign Up</h1>
+					<h1 className={classes.title}>Login</h1>
 					<p className={classes["status"]}> {this.state.message} </p>
 
 					<form className={classes.form}>
-						{/* firstName */}
-						<div>
-							<input
-								className={classes["input-title"]}
-								type="text"
-								name="firstName"
-								value={this.state.firstName}
-								onChange={this.changeHandler}
-								placeholder="Name"
-							/>
-						</div>
-						{/* firstName end */}
-
-						{/* lastName */}
-						<div>
-							<input
-								className={classes["input-title"]}
-								type="text"
-								name="lastName"
-								value={this.state.lastName}
-								onChange={this.changeHandler}
-								placeholder="Last name"
-							/>
-						</div>
-						{/* lastName end */}
 
 						{/* email */}
 						<div>
@@ -152,29 +110,17 @@ class Signup extends Component {
 						</div>
 						{/* password end */}
 
-						{/* passwordRepeat */}
-						<div>
-							<input
-								className={classes["input-title"]}
-								type="password"
-								name="passwordRepeat"
-								value={this.state.passwordRepeat}
-								onChange={this.changeHandler}
-								placeholder="Enter password again"
-							/>
-						</div>
-						{/* passwordRepeat end */}
 
 						<button
 							type="submit"
 							className={classes["sub-btn"]}
 							onClick={this.handleUpload}
 						>
-							Signup
+							Login
 						</button>
 					</form>
-					<Link to="/login" className={classes["link"]}>
-						Alreay have an account
+					<Link to="/signup" className={classes["link"]}>
+						Create Account
 					</Link>
 				</div>
 			</div>
@@ -182,4 +128,4 @@ class Signup extends Component {
 	}
 }
 
-export default Signup;
+export default Login;
