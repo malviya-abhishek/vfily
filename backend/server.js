@@ -5,9 +5,16 @@ const cors = require("cors");
 
 const app = express();
 
+app.use(
+	cors({
+		origin:"*",
+		// methods:["GET", "POST"]
+	})
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
 app.use(express.static("public"));
 
 app.use(
@@ -28,6 +35,7 @@ app.route("/a").get((req, res) => {
 });
 
 require("./routes/routes.api.user").routesConfig(app);
+require("./routes/routes.api.auth").routesConfig(app);
 require("./routes/routes.api.video").routesConfig(app);
 
 app.listen(process.env.PORT, () => {

@@ -5,7 +5,6 @@ import classes from  "./VideoCard.module.css";
 
 function VideoCard(props) {
 
-	console.log(props);
 
 	return (
 		<Link to={`/video/${props.id}`} style={{textDecoration:"none"}} >

@@ -2,8 +2,6 @@ import React from "react";
 import classes from "./Player.module.css";
 
 function Player(props) {
-	console.log("[Player]", props.url);
-
 	return (
 		<div className={classes.playerWrapper}>
 			{props.url ? (

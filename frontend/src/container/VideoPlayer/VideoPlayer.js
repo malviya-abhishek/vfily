@@ -19,7 +19,7 @@ class VideoPlayer extends Component {
 				`http://localhost:3030/videos/${this.props.match.params.videoId}`
 			)
 			.then((result) => {
-				console.log("[ComponentDIDmount]", result.data);
+				
 				this.setState({
 					url: "http://localhost:3030/video/" + result.data.url,
 					title: result.data.title,

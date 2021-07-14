@@ -12,7 +12,6 @@ class VideoPallet extends Component {
 		axios
 			.get("http://localhost:3030/videos")
 			.then((list) => {
-				console.log(list);
 				const temp = [];
 				list.data.forEach((element) => {
 					temp.push(

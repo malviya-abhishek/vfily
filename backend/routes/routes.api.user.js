@@ -9,6 +9,11 @@ const SELLER = parseInt(process.env.SELLER);
 
 exports.routesConfig = function (app) {
 	app.post("/users", [
+		(req, res, next) => {
+			console.log(req.body);
+
+			next();
+		},
 		VerifyUserMiddleware.isVaildUserFields,
 		UserController.insert,
 	]);
