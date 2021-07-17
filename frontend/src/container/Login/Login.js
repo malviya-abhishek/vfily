@@ -13,7 +13,6 @@ class Login extends Component {
 		password: "",
 		message: "Please enter details",
 		defaultmessage: "Please enter details",
-		logged:0
 	};
 
 	changeHandler = (e) => {
@@ -64,18 +63,24 @@ class Login extends Component {
 			.then((result) => {
 				localStorage.setItem('token', result.data.accessToken);
 				localStorage.setItem('refreshToken', result.data.refreshToken);
-				this.setState({logged:1})
+				this.props.setLogged(1);
 			})
 			.catch((err) => {
-				console.log( "[User request]" ,err.response);
+				console.log( "[User request]" ,err.response, err);
 			});
 	};
 
 	render() {
 
+		console.log("[ logged value ]", this.props.logged);
+
 		if(this.state.logged === 1)
 			return <Redirect to="/" />
 
+		if(this.props.logged){
+			return <Redirect to="/" />
+		}
+		else{
 		return (
 			<div style={{ marginTop: "50px" }}>
 				<div className={classes.wrapper}>
@@ -124,7 +129,7 @@ class Login extends Component {
 					</Link>
 				</div>
 			</div>
-		);
+		);}
 	}
 }
 

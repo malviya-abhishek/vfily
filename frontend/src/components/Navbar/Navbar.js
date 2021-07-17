@@ -4,22 +4,12 @@ import { MenuItems } from "./MenuItems";
 import "./Navbar.css";
 
 class Navbar extends Component {
-	state = { clicked: false, logged: 0 };
+	state = { clicked: false};
 	handleClick = () => {
 		this.setState({ clicked: ~this.state.clicked });
 	};
 
-	componentDidMount() {
-		const token = localStorage.getItem("token");
-		if (token) this.setState({ logged: 1 });
-		else this.setState({ logged: 0 });
-	}
 
-	componentDidUpdate() {
-		const token = localStorage.getItem("token");
-		// if (token && this.state.logged != 1 ) this.setState({ logged: 1 });
-		// else if(this.state.logged != 0) this.setState({ logged: 0 });
-	}
 
 	render() {
 		return (
@@ -40,9 +30,11 @@ class Navbar extends Component {
 					}
 				>
 					{MenuItems.map((item, index) => {
+
+
 						if (
 							item.logged === -1 ||
-							item.logged === this.state.logged
+							item.logged === this.props.logged
 						) {
 							return (
 								<li key={index}>
@@ -55,7 +47,7 @@ class Navbar extends Component {
 									</Link>
 								</li>
 							);
-						} else return <></>;
+						} else return null;
 					})}
 				</ul>
 			</nav>

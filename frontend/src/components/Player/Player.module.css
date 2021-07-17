@@ -5,14 +5,12 @@
 
 .Player{
 	margin-top: 30px;
-  /* padding: 0px 10px; */
 	width: 100%;
 	height: 555px;
 }
 
 
 .title{
-  /* padding-left: 20px; */
   font-size: xx-large;
   text-decoration: none;
   margin-bottom: 20px;
@@ -25,14 +23,18 @@
 
 @media screen and (max-width: 730px) {
 	.playerWrapper{
-    margin: auto;
+    margin: 0;
   }
   .Player{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
     width: 100%;
-	  height: 300px;
+    max-height: 300px ;
   }
   .title{
+    padding-left: 10px;
+    margin: 10px 0;
+  }
+  .description{
+    padding-left: 10px;
   }
 }
