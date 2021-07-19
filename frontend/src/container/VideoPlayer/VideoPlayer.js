@@ -11,7 +11,7 @@ class VideoPlayer extends Component {
 		title: "",
 		description: "",
 		thumbnail: "",
-		shareLink: null,
+		sharedId: null,
 	};
 
 	componentDidMount() {
@@ -53,14 +53,13 @@ class VideoPlayer extends Component {
 
 		axios
 			.post(
-				`http://localhost:3030/video/shared/${this.props.match.params.videoId}12`,
+				`http://localhost:3030/video/shared/${this.props.match.params.videoId}`,
 				data,
 				config
 			)
 			.then((result) => {
-				console.log(result);
 				this.setState({
-					shareLink: true,
+					sharedId: `http://localhost:3030/video/shared/${result.data.sharedId}` ,
 				});
 			})
 			.catch((err) => {});
@@ -81,10 +80,9 @@ class VideoPlayer extends Component {
 						{" "}
 						Create link{" "}
 					</Button>
-					{this.state.shareLink ? (
+					{this.state.sharedId ? (
 						<div className={classes["shared-link"]}>
-							{" "}
-							http://localhost:3000/video/shared/60f5beb5a3df557661833595{" "}
+							{this.state.sharedId}
 						</div>
 					) : null}
 				</div>
@@ -94,4 +92,3 @@ class VideoPlayer extends Component {
 }
 export default VideoPlayer;
 
-//

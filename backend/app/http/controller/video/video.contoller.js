@@ -121,14 +121,9 @@ exports.videoLink = (req, res) => {
 
 
 exports.shared = (req, res) =>{
-
-	
-
 	LinkModel.CreateLink(req.params.videoId).then(result => {
-		console.log("result", result);
-		res.send("Hello");
+		res.send({ sharedId : result._id });
 	}).catch(err=>{
-		console.log("err", err);
-		res.send("Not hello")
+		res.send({err: "invalid video id"})
 	});
 }

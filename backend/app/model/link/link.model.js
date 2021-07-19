@@ -8,9 +8,10 @@ const linkSchema = new Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
 		},
-		url: {
-			type: String,
-		},
+		videoId:{
+      type: mongoose.Schema.Types.ObjectId,
+			ref: "Video",
+    }
 	},
 	{ timestamps: true }
 );
@@ -22,12 +23,19 @@ linkSchema.set("toJSON", {
 const Link = mongoose.model("Link", linkSchema);
 
 exports.CreateLink = (videoId) => {
+  // sharedId
 	return new Promise((resolve, reject) => {
 		VideoModel.findById(videoId)
 			.then((result) => {
 				if (result) {
-					resolve(result)
-				} else reject("invalid video id");
+          const linkData = {
+            userId: result.userId,
+            videoId: result.id
+          }
+          link = new Link(linkData);
+					resolve(link.save());
+				
+        } else reject("invalid video id");
 			})
 			.catch((err) => {
 				reject("invalid video id");
