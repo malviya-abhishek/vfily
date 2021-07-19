@@ -51,9 +51,9 @@ exports.createVideo = (videoData) => {
 	return video.save();
 };
 
-exports.list = (perPage, page) => {
+exports.list = (perPage, page, userId) => {
 	return new Promise((resolve, reject) => {
-		Video.find()
+		Video.find( {userId: userId } )
 			.limit(perPage)
 			.skip(perPage * page)
 			.exec(function (err, videos) {

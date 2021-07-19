@@ -6,10 +6,9 @@ import Button from '../Button/Button';
 function PleaseLogin(props) {
   return (
     <div className={classes.wrapper} >
-      <img src="/images/login.jpg" alt="login image" className={classes["login-image"]}  />
+      <img alt="loginImage"  src="/images/login.jpg"  className={classes["login-image"]}  />
       <p className={classes["sub-text"]} > Please login to proceed </p>
       <Link to="/login" className={classes["login-link"]} > <Button> Login </Button> </Link>
-      
     </div>
   );
 }

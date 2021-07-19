@@ -29,6 +29,7 @@ exports.upload = (req, res) => {
 
 			file.pipe(fstream);
 			fstream.on("close", () => {
+				newVideo.userId = req.jwt.userId
 				newVideo.thumbnail = filename;
 			});
 
@@ -69,7 +70,7 @@ exports.videos = (req, res) => {
 			page = Number.isInteger(req.query.page) ? req.query.page : 0;
 		}
 	}
-	VideoModel.list(limit, page).then((result) => {
+	VideoModel.list(limit, page, req.jwt.userId).then((result) => {
 		res.status(200).send(result);
 	});
 };
@@ -89,7 +90,6 @@ exports.video = (req, res) => {
 
 	const videoPath = path.join(__dirname, req.params.videoPath);
 
-	// __dirname, '../../../../public/video/1626031130139-991020255MISSION IMPOSSIBLE 5  (HOLLY).mkv'
 
 	const videoSize = fs.statSync(videoPath).size;
 
@@ -124,8 +124,3 @@ exports.videoLink = (req, res) => {
 
 
 
-// exports.thumbnail = (req, res) =>{
-// 	if(req.params.thumbnail){
-// 		return res.send( {thumbnail : '/images/' + req.params.thumbnail } )
-// 	}
-// }

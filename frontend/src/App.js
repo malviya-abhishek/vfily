@@ -13,18 +13,17 @@ import { useState, useEffect } from "react";
 function App() {
 	const [logged, setLogged] = useState(0);
 
-
-	useEffect( ()=>{
+	useEffect(() => {
 		const token = localStorage.getItem("token");
-		if(token)
+		if (token) {
 			setLogged(1);
+		}
 	},[]);
 
 	return (
 		<div className="App">
 			<Navbar logged={logged} />
 			<Switch>
-				
 				<Route
 					exact
 					path="/"
@@ -37,7 +36,14 @@ function App() {
 				/>
 
 				<Route exact path="/video/:videoId" component={VideoPlayer} />
-				<Route exact path="/upload" component={VideoUpload} />
+
+				<Route
+					exact
+					path="/upload"
+					render={(props) => (
+						<VideoUpload {...props}  />
+					)}
+				/>
 				<Route
 					exact
 					path="/signup"

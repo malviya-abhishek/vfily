@@ -36,7 +36,7 @@ class VideoPlayer extends Component {
 		return (
 			<div className={classes.playerBlock}>
 				<Player title={this.state.title} url={this.state.url} description={this.state.description} thumbnail={this.state.thumbnail} />
-				{/* <div className={classes.suggestions}>{this.state.list}</div> */}
+				<div className={classes["create-link"]}>create link</div>
 			</div>
 		);
 	}

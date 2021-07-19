@@ -66,8 +66,14 @@ class VideoUpload extends Component {
 
 		data.append("video", this.state.video, this.state.video.name);
 
+		const config = {
+			headers: {
+				Authorization: "Bearer " + localStorage.getItem("token"),
+			},
+		};
+
 		axios
-			.post(endpoint, data, {
+			.post(endpoint, data, config, {
 				onUploadProgress: (ProgressEvent) => {
 					this.setState({
 						message:
@@ -88,6 +94,7 @@ class VideoUpload extends Component {
 				});
 			})
 			.catch((err) => {
+				console.log(err.response);
 				this.setState({
 					uploading: false,
 					message: "Failed to upload",
