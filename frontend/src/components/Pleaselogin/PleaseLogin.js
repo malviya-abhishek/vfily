@@ -7,8 +7,8 @@ function PleaseLogin(props) {
   return (
     <div className={classes.wrapper} >
       <img alt="loginImage"  src="/images/login.jpg"  className={classes["login-image"]}  />
-      <p className={classes["sub-text"]} > Please login to proceed </p>
-      <Link to="/login" className={classes["login-link"]} > <Button> Login </Button> </Link>
+      <p className={classes["sub-text"]} > {props.message} </p>
+      <Link to={props.link}  className={classes["login-link"]} > <Button> {props.btnMsg} </Button> </Link>
     </div>
   );
 }

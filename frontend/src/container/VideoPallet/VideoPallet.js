@@ -20,7 +20,6 @@ class VideoPallet extends Component {
 			},
 		};
 
-		console.log(config);
 
 
 		axios
@@ -49,9 +48,11 @@ class VideoPallet extends Component {
 
 	render() {
 		return this.props.logged === 1 ? (
+			this.state.list.length ?
 			<div className={classes.container}>{this.state.list}</div>
-		) : (
-			<PleaseLogin />
+			: <PleaseLogin message="No Video uploaded" link="/upload" btnMsg="upload"  /> 
+			) : (
+			<PleaseLogin message="Please login to proceed" link="/login" btnMsg="login" />
 		);
 	}
 }

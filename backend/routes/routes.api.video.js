@@ -8,10 +8,17 @@ exports.routesConfig = function (app) {
 		AuthValidationMiddleware.validJWTNeeded,
 		VideoController.videos,
 	]);
-	app.get("/videos/:videoId", [VideoController.videoLink]);
+	app.get("/videos/:videoId", [
+		AuthValidationMiddleware.validJWTNeeded,
+		VideoController.videoLink,
+	]);
 	app.get("/video/:videoPath", [VideoController.video]);
 	app.post("/upload", [
 		AuthValidationMiddleware.validJWTNeeded,
 		VideoController.upload,
+	]);
+	app.post("/video/shared/:videoId", [
+		AuthValidationMiddleware.validJWTNeeded,
+		VideoController.shared
 	]);
 };

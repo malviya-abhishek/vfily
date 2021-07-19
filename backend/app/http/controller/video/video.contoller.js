@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs-extra");
 const VideoModel = require("../../../model/video/video.model");
+const LinkModel = require("../../../model/link/link.model");
 
 exports.upload = (req, res) => {
 	const newVideo = {};
@@ -13,8 +14,6 @@ exports.upload = (req, res) => {
 
 	req.busboy.on("file", (fieldname, file, filename) => {
 		if (fieldname === "thumbnail") {
-
-
 			const uploadPath = path.join(
 				__dirname,
 				"../../../../public/images"
@@ -29,10 +28,9 @@ exports.upload = (req, res) => {
 
 			file.pipe(fstream);
 			fstream.on("close", () => {
-				newVideo.userId = req.jwt.userId
+				newVideo.userId = req.jwt.userId;
 				newVideo.thumbnail = filename;
 			});
-
 		} else {
 			const uploadPath = path.join(__dirname, "../../../../public/video");
 
@@ -90,7 +88,6 @@ exports.video = (req, res) => {
 
 	const videoPath = path.join(__dirname, req.params.videoPath);
 
-
 	const videoSize = fs.statSync(videoPath).size;
 
 	const CHUNK_SIZE = 10 ** 6; // 1MB
@@ -123,4 +120,15 @@ exports.videoLink = (req, res) => {
 };
 
 
+exports.shared = (req, res) =>{
 
+	
+
+	LinkModel.CreateLink(req.params.videoId).then(result => {
+		console.log("result", result);
+		res.send("Hello");
+	}).catch(err=>{
+		console.log("err", err);
+		res.send("Not hello")
+	});
+}

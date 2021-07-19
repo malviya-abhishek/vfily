@@ -11,7 +11,6 @@
 .btn:hover {
   background-color: white ;
   color: rgba(77, 63, 252, 1);
-	transition: ease-in-out 1s ;
+	transition: ease-in .5s ;
   cursor: pointer;
-
 }
