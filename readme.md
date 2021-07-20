@@ -50,5 +50,7 @@ yarrn start
 
 ## For API read [api.md](https://github.com/Malviya-abhishek/e-commerce-api-version/blob/master/api.md)
 
+## For application detail read [detail.md](https://github.com/Malviya-abhishek/vfily/blob/master/detail.md)
+
 ## License
 MIT
