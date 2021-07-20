@@ -11,20 +11,27 @@ class VideoPlayer extends Component {
 		title: "",
 		description: "",
 		thumbnail: "",
-		sharedId: null,
+		sharedURL: null,
+		copied: false,
+		logged:null
 	};
 
 	componentDidMount() {
-
+		this.setState({
+			logged: localStorage.getItem("token")
+		})
 		const config = {
 			headers: {
 				Authorization: "Bearer " + localStorage.getItem("token"),
 			},
 		};
 
+		const endpoint = "http://localhost:3030/videos/" + (this.props.shared ? "shared/" : "")  + this.props.match.params.videoId ;
+
 		axios
 			.get(
-				`http://localhost:3030/videos/${this.props.match.params.videoId}`,config
+				endpoint,
+				config
 			)
 			.then((result) => {
 				this.setState({
@@ -40,9 +47,20 @@ class VideoPlayer extends Component {
 			});
 	}
 
-	CreateLinkHandler() {
+	CopyURL() {
+		const el = document.createElement("input");
+		el.value = this.state.sharedURL;
+		document.body.appendChild(el);
+		el.select();
+		document.execCommand("copy");
+		document.body.removeChild(el);
+		this.setState({
+			copied: true,
+		});
+	}
 
-		const data = {}
+	CreateLinkHandler() {
+		const data = {};
 
 		const config = {
 			headers: {
@@ -50,20 +68,18 @@ class VideoPlayer extends Component {
 			},
 		};
 
-
 		axios
 			.post(
-				`http://localhost:3030/video/shared/${this.props.match.params.videoId}`,
+				`http://localhost:3030/videos/shared/${this.props.match.params.videoId}`,
 				data,
 				config
 			)
 			.then((result) => {
 				this.setState({
-					sharedId: `http://localhost:3030/video/shared/${result.data.sharedId}` ,
+					sharedURL: `http://localhost:3000/video/shared/${result.data.sharedId}`,
 				});
 			})
 			.catch((err) => {});
-		
 	}
 
 	render() {
@@ -75,20 +91,26 @@ class VideoPlayer extends Component {
 					description={this.state.description}
 					thumbnail={this.state.thumbnail}
 				/>
+				{this.state.logged?
 				<div className={classes["create-link"]}>
 					<Button onClickHandler={this.CreateLinkHandler.bind(this)}>
-						{" "}
-						Create link{" "}
+						Create link
 					</Button>
-					{this.state.sharedId ? (
+					{this.state.sharedURL ? (
 						<div className={classes["shared-link"]}>
-							{this.state.sharedId}
+							<div className={classes.sharedURL}>
+								{this.state.sharedURL}
+							</div>
+								<i onClick={this.CopyURL.bind(this)} className= { this.state.copied ? "fas fa-check-double" : "far fa-copy" } ></i>
 						</div>
 					) : null}
 				</div>
+				:null}
 			</div>
 		);
 	}
 }
 export default VideoPlayer;
 
+
+// http://localhost:3000/videos/60f5beb5a3df557661833595

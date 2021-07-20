@@ -3,24 +3,55 @@
 	grid-template-columns: 65% 35%;
 }
 
-
-.create-link{
+.create-link {
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin: 20px;
-	/* border: solid 2px black; */
 }
 
-.shared-link{
+.shared-link {
+	display: grid;
+	grid-template-columns: 80% 20%;
 	margin-top: 10px;
 	padding: 15px;
 	border-radius: 5px;
 	background-color: #ddd;
+	border: blueviolet 2px solid;
+}
+
+.shared-link i {
+	margin: auto;
+	background-color: rgba(77, 63, 252, 1) ;
+	padding: 15px;
+	border-radius: 5px;
+	margin-right: 10px;
+	color: white;
+}
+
+.shared-link i:hover{
+	background-color: white;
+	color: rgba(77, 63, 252, 1);
+}
+
+.shared-link .sharedURL {
+	margin-left: 10px;
+	margin-top: auto;
+	margin-bottom: auto;
+	color: blue;
+	word-wrap: break-word;
 }
 
 @media screen and (max-width: 1040px) {
 	.playerBlock {
 		display: grid;
 		grid-template-columns: 100%;
+	}
+	.shared-link .sharedURL {
+		margin-left: 5px;
+	}
+	.shared-link i {
+		margin: auto;
+		padding: 15px;
+		margin-right: 0px;
 	}
 }

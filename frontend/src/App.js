@@ -18,7 +18,7 @@ function App() {
 		if (token) {
 			setLogged(1);
 		}
-	},[]);
+	}, []);
 
 	return (
 		<div className="App">
@@ -28,11 +28,14 @@ function App() {
 					exact
 					path="/"
 					render={(props) => (
-						<VideoPallet
-							{...props}
-							logged={logged}
-						/>
+						<VideoPallet {...props} logged={logged} />
 					)}
+				/>
+
+				<Route
+					exact
+					path="/video/shared/:videoId"
+					render={(props) => <VideoPlayer {...props} shared={true} />}
 				/>
 
 				<Route exact path="/video/:videoId" component={VideoPlayer} />
@@ -40,9 +43,7 @@ function App() {
 				<Route
 					exact
 					path="/upload"
-					render={(props) => (
-						<VideoUpload {...props}  />
-					)}
+					render={(props) => <VideoUpload {...props} />}
 				/>
 				<Route
 					exact

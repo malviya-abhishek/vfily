@@ -32,7 +32,7 @@ videoSchema.set("toJSON", {
 });
 
 videoSchema.findById = function (cb) {
-	return this.model("Users").find({ id: this.id }, cb);
+	return this.model("Video").find({ id: this.id }, cb);
 };
 
 const Video = mongoose.model("Video", videoSchema);

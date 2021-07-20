@@ -20,6 +20,10 @@ linkSchema.set("toJSON", {
 	virtuals: true,
 });
 
+linkSchema.findById = function (cb) {
+	return this.model("Link").find({ id: this.id }, cb);
+};
+
 const Link = mongoose.model("Link", linkSchema);
 
 exports.CreateLink = (videoId) => {
@@ -43,3 +47,12 @@ exports.CreateLink = (videoId) => {
 	});
 };
   
+
+exports.findById = (id) => {
+	return Link.findById(id).then((result) => {
+		result = result.toJSON();
+		delete result._id;
+		delete result.__v;
+		return result;
+	});
+};

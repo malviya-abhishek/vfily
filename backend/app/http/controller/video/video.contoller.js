@@ -78,7 +78,6 @@ exports.home = (req, res) => {
 };
 
 exports.video = (req, res) => {
-	console.log("[Video link]", req.params);
 
 	const range = req.headers.range;
 
@@ -119,11 +118,34 @@ exports.videoLink = (req, res) => {
 		});
 };
 
+exports.sharedPost = (req, res) => {
+	LinkModel.CreateLink(req.params.videoId)
+		.then((result) => {
+			res.send({ sharedId: result._id });
+		})
+		.catch((err) => {
+			res.send({ err: "invalid video id" });
+		});
+};
 
-exports.shared = (req, res) =>{
-	LinkModel.CreateLink(req.params.videoId).then(result => {
-		res.send({ sharedId : result._id });
-	}).catch(err=>{
-		res.send({err: "invalid video id"})
-	});
-}
+exports.sharedGet = (req, res) => {
+
+
+	LinkModel.findById(req.params.sharedId)
+		.then((result) => {
+
+			if (result) {
+				VideoModel.findById(result.videoId)
+					.then((result) => {
+						return res.send(result);
+					})
+					.catch((err) => {
+						return res.sendStatus(404);
+					});
+			} 
+			else return res.sendStatus(404);
+		})
+		.catch((err) => {
+			return res.sendStatus(404);
+		});
+};
