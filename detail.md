@@ -1,5 +1,4 @@
 # Vfily details ✨
-## Hakuna Matata
 
 ### How to use Vfily
 

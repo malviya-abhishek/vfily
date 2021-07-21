@@ -1,5 +1,4 @@
 # Vfily ✨
-## Hakuna Matata
 
 ### Vfily is a video sharing platform on which you can
 - Stream you videos 📺
