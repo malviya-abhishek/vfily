@@ -94,6 +94,7 @@ exports.video = (req, res) => {
 	const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
 
 	const contentLength = end - start + 1;
+	
 	const headers = {
 		"Content-Range": `bytes ${start}-${end}/${videoSize}`,
 		"Accept-Ranges": "bytes",
