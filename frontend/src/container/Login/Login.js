@@ -61,8 +61,11 @@ class Login extends Component {
 		axios
 			.post(endpoint, data)
 			.then((result) => {
-				localStorage.setItem('token', result.data.accessToken);
-				localStorage.setItem('refreshToken', result.data.refreshToken);
+
+				console.log("[result]", result);
+
+				// localStorage.setItem('token', result.data.accessToken);
+				// localStorage.setItem('refreshToken', result.data.refreshToken);
 				this.props.setLogged(1);
 			})
 			.catch((err) => {
@@ -72,7 +75,6 @@ class Login extends Component {
 
 	render() {
 
-		console.log("[ logged value ]", this.props.logged);
 
 		if(this.state.logged === 1)
 			return <Redirect to="/" />

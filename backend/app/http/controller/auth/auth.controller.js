@@ -23,11 +23,16 @@ exports.login = (req, res) => {
 
 		let refresh_token = b.toString("base64");
 
-		return res
-			.status(201)
-			.send({ accessToken: token, refreshToken: refresh_token });
+
+		console.log("[Auth login]", token);
+
+		return res.writeHead(200, {
+			"Set-Cookie": `token=${ token }; HttpOnly`,
+			"Access-Control-Allow-Credentials": "true",
+		}).send();
 
 	} catch (err) {
 		return res.status(500).send({ error: err });
 	}
 };
+
