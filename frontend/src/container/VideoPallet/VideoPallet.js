@@ -12,16 +12,11 @@ class VideoPallet extends Component {
 	};
 
 	componentDidMount() {
-
-
 		const config = {
 			headers: {
 				Authorization: "Bearer " + localStorage.getItem("token"),
 			},
 		};
-
-
-
 		axios
 			.get(endpoint,config)
 			.then((list) => {

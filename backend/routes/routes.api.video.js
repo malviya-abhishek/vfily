@@ -14,7 +14,7 @@ exports.routesConfig = function (app) {
 		VideoController.videoLink,
 	]);
 
-	app.get("/video/:videoPath", [VideoController.video]);
+	app.get("/video-file/:videoPath", [VideoController.video]);
 
 	app.post("/upload", [
 		AuthValidationMiddleware.validJWTNeeded,
@@ -23,9 +23,7 @@ exports.routesConfig = function (app) {
 
 	app.post("/videos/shared/:videoId", [
 		AuthValidationMiddleware.validJWTNeeded,
-		VideoController.sharedPost
+		VideoController.sharedPost,
 	]);
-	app.get("/videos/shared/:sharedId",[
-		VideoController.sharedGet
-	])
+	app.get("/videos/shared/:sharedId", [VideoController.sharedGet]);
 };

@@ -20,10 +20,6 @@ app.use(
 );
 
 app.use([
-	(req, res, next) => {
-		console.log("Hello world", x++);
-		next();
-	},
 	AuthValidationMiddleware.validJWTNeeded,
 	express.static("public"),
 ]);

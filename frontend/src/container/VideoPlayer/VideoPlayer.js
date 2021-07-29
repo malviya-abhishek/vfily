@@ -10,41 +10,69 @@ class VideoPlayer extends Component {
 		url: null,
 		title: "",
 		description: "",
-		thumbnail: "",
+		thumbnailUrl: "",
+		thumbnail: null,
 		sharedURL: null,
 		copied: false,
-		logged:null
+		logged: null,
 	};
 
-	componentDidMount() {
-		this.setState({
-			logged: localStorage.getItem("token")
-		})
+	getContent() {
 		const config = {
 			headers: {
 				Authorization: "Bearer " + localStorage.getItem("token"),
 			},
 		};
 
-		const endpoint = "http://localhost:3030/videos/" + (this.props.shared ? "shared/" : "")  + this.props.match.params.videoId ;
+		const endpoint =
+			"http://localhost:3030/videos/" +
+			(this.props.shared ? "shared/" : "") +
+			this.props.match.params.videoId;
 
 		axios
-			.get(
-				endpoint,
-				config
-			)
+			.get(endpoint, config)
 			.then((result) => {
 				this.setState({
-					url: "http://localhost:3030/video/" + result.data.url,
+					url: "http://localhost:3030/video-file/" + result.data.url,
 					title: result.data.title,
 					description: result.data.description,
-					thumbnail:
+					thumbnailUrl:
 						"http://localhost:3030/images/" + result.data.thumbnail,
 				});
+
+				//-------------------------------------
+				axios
+					.get(this.state.thumbnailUrl, {
+						...config,
+						responseType: "arraybuffer",
+					})
+					.then((result) => {
+						const base64 = btoa(
+							new Uint8Array(result.data).reduce(
+								(data, byte) =>
+									data + String.fromCharCode(byte),
+								""
+							)
+						);
+						this.setState({ thumbnail: "data:;base64," + base64 });
+					})
+					.catch((err) => {
+						console.log("[ERROR]", err.response);
+					});
+				//-------------------------------------
+				
 			})
 			.catch((err) => {
 				console.log(["ComponentDIDmount BAD"], err);
 			});
+	}
+
+	componentDidMount() {
+		this.setState({
+			logged: localStorage.getItem("token"),
+		});
+
+		this.getContent();
 	}
 
 	CopyURL() {
@@ -91,26 +119,32 @@ class VideoPlayer extends Component {
 					description={this.state.description}
 					thumbnail={this.state.thumbnail}
 				/>
-				{this.state.logged?
-				<div className={classes["create-link"]}>
-					<Button onClickHandler={this.CreateLinkHandler.bind(this)}>
-						Create link
-					</Button>
-					{this.state.sharedURL ? (
-						<div className={classes["shared-link"]}>
-							<div className={classes.sharedURL}>
-								{this.state.sharedURL}
+				{this.state.logged ? (
+					<div className={classes["create-link"]}>
+						<Button
+							onClickHandler={this.CreateLinkHandler.bind(this)}
+						>
+							Create link
+						</Button>
+						{this.state.sharedURL ? (
+							<div className={classes["shared-link"]}>
+								<div className={classes.sharedURL}>
+									{this.state.sharedURL}
+								</div>
+								<i
+									onClick={this.CopyURL.bind(this)}
+									className={
+										this.state.copied
+											? "fas fa-check-double"
+											: "far fa-copy"
+									}
+								></i>
 							</div>
-								<i onClick={this.CopyURL.bind(this)} className= { this.state.copied ? "fas fa-check-double" : "far fa-copy" } ></i>
-						</div>
-					) : null}
-				</div>
-				:null}
+						) : null}
+					</div>
+				) : null}
 			</div>
 		);
 	}
 }
 export default VideoPlayer;
-
-
-// http://localhost:3000/videos/60f5beb5a3df557661833595

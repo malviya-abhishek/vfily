@@ -61,7 +61,7 @@ exports.list = (perPage, page, userId) => {
 				else {
 					const newVideo = [];
 					videos.forEach((video) => {
-						// video = video.toJSON();
+						video = video.toJSON();
 						delete video._id;
 						delete video.__v;
 						newVideo.push(video);
