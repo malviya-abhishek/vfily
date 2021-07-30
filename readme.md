@@ -5,6 +5,8 @@
 - Share them your friends 🎎
 - Use it as a dropbox to save space on your device  ✨
 
+![](images/vifly.gif)
+
 ## Tech
 - Node.js
 - Express
