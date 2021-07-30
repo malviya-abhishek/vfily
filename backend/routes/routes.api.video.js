@@ -1,6 +1,6 @@
 const VideoController = require("../app/http/controller/video/video.contoller");
 const AuthValidationMiddleware = require("../app/http/middleware/auth/auth.validation.middleware");
-const AuthPermissionMiddleware = require("../app/http/middleware/auth/auth.validation.middleware");
+const AuthPermissionMiddleware = require("../app/http/middleware/auth/auth.permission.middleware");
 const CookieValidationMiddleware = require("../app/http/middleware/auth/cookie.validation.middleware");
 
 exports.routesConfig = function (app) {
@@ -10,7 +10,6 @@ exports.routesConfig = function (app) {
 	]);
 
 	app.get("/videos/:videoId", [
-		// AuthValidationMiddleware.validJWTNeeded,
 		CookieValidationMiddleware.validCookieNeeded,
 		VideoController.videoLink,
 	]);

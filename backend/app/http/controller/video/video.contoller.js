@@ -118,7 +118,11 @@ exports.video = (req, res) => {
 exports.videoLink = (req, res) => {
 	VideoModel.findById(req.params.videoId)
 		.then((result) => {
-			return res.send(result);
+			if (req.jwt.userId != "" + result.userId) {
+				return res.sendStatus(404);
+			} else {
+				return res.send(result);
+			}
 		})
 		.catch((err) => {
 			return res.sendStatus(404);
@@ -136,13 +140,14 @@ exports.sharedPost = (req, res) => {
 };
 
 exports.sharedGet = (req, res) => {
-	let token = jwt.sign(req.body, JWT_SECRET);
+	let token = jwt.sign({ userId: "temporary" }, JWT_SECRET);
 	LinkModel.findById(req.params.sharedId)
 		.then((result) => {
 			if (result) {
 				VideoModel.findById(result.videoId)
 					.then((result) => {
-						return res.status(202)
+						return res
+							.status(202)
 							.cookie("token", token, {
 								sameSite: "strict",
 								path: "/",
