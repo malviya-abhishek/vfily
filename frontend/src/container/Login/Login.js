@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import classes from "./Login.module.css";
-
+axios.defaults.withCredentials = true
 
 
 const endpoint = "http://localhost:3030/auth";
@@ -61,11 +61,6 @@ class Login extends Component {
 		axios
 			.post(endpoint, data)
 			.then((result) => {
-
-				console.log("[result]", result);
-
-				// localStorage.setItem('token', result.data.accessToken);
-				// localStorage.setItem('refreshToken', result.data.refreshToken);
 				this.props.setLogged(1);
 			})
 			.catch((err) => {

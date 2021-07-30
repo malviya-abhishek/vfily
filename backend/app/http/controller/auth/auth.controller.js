@@ -23,16 +23,20 @@ exports.login = (req, res) => {
 
 		let refresh_token = b.toString("base64");
 
-
-		console.log("[Auth login]", token);
-
-		return res.writeHead(200, {
-			"Set-Cookie": `token=${ token }; HttpOnly`,
-			"Access-Control-Allow-Credentials": "true",
-		}).send();
-
+		return res
+			.status(202)
+			.cookie("token", token, {
+				sameSite: "strict",
+				path: "/",
+				expires: new Date(new Date().getTime() + 100 * 1000),
+				httpOnly: true,
+			})
+			.send("cookie being initialised");
 	} catch (err) {
 		return res.status(500).send({ error: err });
 	}
 };
 
+exports.logout = (req, res) => {
+	return res.status(202).clearCookie("token").send("cookies cleared");
+};

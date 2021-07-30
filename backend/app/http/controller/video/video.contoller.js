@@ -85,7 +85,7 @@ exports.video = (req, res) => {
 		res.status(400).send("Requires Range header");
 	}
 
-	const videoPath = path.join(__dirname, req.params.videoPath);
+	const videoPath = path.join(__dirname, '../../../../public/video' ,req.params.videoPath);
 
 	const videoSize = fs.statSync(videoPath).size;
 

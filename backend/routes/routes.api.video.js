@@ -4,30 +4,33 @@ const AuthPermissionMiddleware = require("../app/http/middleware/auth/auth.valid
 const CookieValidationMiddleware = require("../app/http/middleware/auth/cookie.validation.middleware");
 
 exports.routesConfig = function (app) {
-	// app.get("/", [VideoController.home]);
 	app.get("/videos", [
-		// AuthValidationMiddleware.validJWTNeeded,
 		CookieValidationMiddleware.validCookieNeeded,
 		VideoController.videos,
 	]);
 
 	app.get("/videos/:videoId", [
-		AuthValidationMiddleware.validJWTNeeded,
+		// AuthValidationMiddleware.validJWTNeeded,
+		CookieValidationMiddleware.validCookieNeeded,
 		VideoController.videoLink,
 	]);
 
-	app.get("/video/:videoPath", [VideoController.video]);
+	app.get("/video/:videoPath", [
+		CookieValidationMiddleware.validCookieNeeded,
+		VideoController.video,
+	]);
 
 	app.post("/upload", [
-		AuthValidationMiddleware.validJWTNeeded,
+		CookieValidationMiddleware.validCookieNeeded,
+		// AuthValidationMiddleware.validJWTNeeded,
 		VideoController.upload,
 	]);
 
 	app.post("/videos/shared/:videoId", [
-		AuthValidationMiddleware.validJWTNeeded,
-		VideoController.sharedPost
+		// AuthValidationMiddleware.validJWTNeeded,
+		CookieValidationMiddleware.validCookieNeeded,
+
+		VideoController.sharedPost,
 	]);
-	app.get("/videos/shared/:sharedId",[
-		VideoController.sharedGet
-	])
+	app.get("/videos/shared/:sharedId", [VideoController.sharedGet]);
 };

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import classes from "./VideoPallet.module.css";
-import axios from "axios";
 import PleaseLogin from "../../components/Pleaselogin/PleaseLogin";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 const endpoint = "http://localhost:3030/videos";
 
@@ -12,12 +14,6 @@ class VideoPallet extends Component {
 	};
 
 	componentDidMount() {
-		// const config = {
-		// 	headers: {
-		// 		Authorization: "Bearer " + localStorage.getItem("token"),
-		// 	},
-		// };
-
 		if (this.props.logged) {
 			axios
 				.get(endpoint, { withCredentials: true })

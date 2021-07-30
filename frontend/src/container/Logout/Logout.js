@@ -1,15 +1,23 @@
-import React from 'react';
-import { Redirect } from 'react-router';
+import React, { useEffect } from "react";
+import { Redirect } from "react-router";
+import axios from "axios";
+axios.defaults.withCredentials = true;
+
+const endpoint = "http://localhost:3030/auth/logout";
 
 function Logout(props) {
-  
-  localStorage.removeItem( 'token');
-  localStorage.removeItem( 'refreshToken');
-  props.setLogged(0);
+	useEffect(() => {
+		axios
+			.get(endpoint, { withCredentials: true })
+			.then((res) => {
+				props.setLogged(0);
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	}, []);
 
-  return (
-    <Redirect to="/" />
-  );
+	return <Redirect to="/" />;
 }
 
 export default Logout;
