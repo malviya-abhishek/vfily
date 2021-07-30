@@ -28,7 +28,7 @@ exports.login = (req, res) => {
 			.cookie("token", token, {
 				sameSite: "strict",
 				path: "/",
-				expires: new Date(new Date().getTime() + 100 * 1000),
+				// expires: new Date(new Date().getTime() + 100 * 1000),
 				httpOnly: true,
 			})
 			.send("cookie being initialised");

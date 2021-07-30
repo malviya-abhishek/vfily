@@ -29,7 +29,6 @@ exports.routesConfig = function (app) {
 	app.post("/videos/shared/:videoId", [
 		// AuthValidationMiddleware.validJWTNeeded,
 		CookieValidationMiddleware.validCookieNeeded,
-
 		VideoController.sharedPost,
 	]);
 	app.get("/videos/shared/:sharedId", [VideoController.sharedGet]);

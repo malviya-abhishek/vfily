@@ -18,31 +18,58 @@ class VideoPlayer extends Component {
 	};
 
 	componentDidMount() {
+		if (this.props.shared) {
+			
+			const endpoint =
+				"http://localhost:3030/videos/" +
+				(this.props.shared ? "shared/" : "") +
+				this.props.match.params.videoId;
 
-
-		this.setState({
-			logged: this.props.logged,
-		});
-
-		const endpoint =
-			"http://localhost:3030/videos/" +
-			(this.props.shared ? "shared/" : "") +
-			this.props.match.params.videoId;
-
-		axios
-			.get(endpoint, { withCredentials: true })
-			.then((result) => {
-				this.setState({
-					url: "http://localhost:3030/video/" + result.data.url,
-					title: result.data.title,
-					description: result.data.description,
-					thumbnail:
-						"http://localhost:3030/images/" + result.data.thumbnail,
+			axios
+				.get(endpoint, { withCredentials: true })
+				.then((result) => {
+					this.setState({
+						url: "http://localhost:3030/video/" + result.data.url,
+						title: result.data.title,
+						description: result.data.description,
+						thumbnail:
+							"http://localhost:3030/images/" +
+							result.data.thumbnail,
+					});
+				})
+				.catch((err) => {
+					console.log(["ComponentDIDmount BAD"], err);
 				});
-			})
-			.catch((err) => {
-				console.log(["ComponentDIDmount BAD"], err);
+
+			
+		} else {
+			
+			this.setState({
+				logged: this.props.logged,
 			});
+
+			const endpoint =
+				"http://localhost:3030/videos/" +
+				(this.props.shared ? "shared/" : "") +
+				this.props.match.params.videoId;
+
+			axios
+				.get(endpoint, { withCredentials: true })
+				.then((result) => {
+					this.setState({
+						url: "http://localhost:3030/video/" + result.data.url,
+						title: result.data.title,
+						description: result.data.description,
+						thumbnail:
+							"http://localhost:3030/images/" +
+							result.data.thumbnail,
+					});
+				})
+				.catch((err) => {
+					console.log(["ComponentDIDmount BAD"], err);
+				});
+
+		}
 	}
 
 	CopyURL() {
@@ -59,18 +86,11 @@ class VideoPlayer extends Component {
 
 	CreateLinkHandler() {
 		const data = {};
-
-		const config = {
-			headers: {
-				Authorization: "Bearer " + localStorage.getItem("token"),
-			},
-		};
-
 		axios
 			.post(
 				`http://localhost:3030/videos/shared/${this.props.match.params.videoId}`,
 				data,
-				config
+				{ withCredentials: true }
 			)
 			.then((result) => {
 				this.setState({

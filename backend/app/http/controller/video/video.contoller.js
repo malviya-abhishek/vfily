@@ -2,6 +2,9 @@ const path = require("path");
 const fs = require("fs-extra");
 const VideoModel = require("../../../model/video/video.model");
 const LinkModel = require("../../../model/link/link.model");
+require("dotenv").config();
+const JWT_SECRET = process.env.JWT_SECRET;
+const jwt = require("jsonwebtoken");
 
 exports.upload = (req, res) => {
 	const newVideo = {};
@@ -78,14 +81,17 @@ exports.home = (req, res) => {
 };
 
 exports.video = (req, res) => {
-
 	const range = req.headers.range;
 
 	if (!range) {
 		res.status(400).send("Requires Range header");
 	}
 
-	const videoPath = path.join(__dirname, '../../../../public/video' ,req.params.videoPath);
+	const videoPath = path.join(
+		__dirname,
+		"../../../../public/video",
+		req.params.videoPath
+	);
 
 	const videoSize = fs.statSync(videoPath).size;
 
@@ -94,7 +100,7 @@ exports.video = (req, res) => {
 	const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
 
 	const contentLength = end - start + 1;
-	
+
 	const headers = {
 		"Content-Range": `bytes ${start}-${end}/${videoSize}`,
 		"Accept-Ranges": "bytes",
@@ -130,21 +136,28 @@ exports.sharedPost = (req, res) => {
 };
 
 exports.sharedGet = (req, res) => {
-
-
+	let token = jwt.sign(req.body, JWT_SECRET);
+	console.log(token);
 	LinkModel.findById(req.params.sharedId)
 		.then((result) => {
-
 			if (result) {
 				VideoModel.findById(result.videoId)
 					.then((result) => {
-						return res.send(result);
+						return res.status(202)
+							.cookie("token", token, {
+								sameSite: "strict",
+								path: "/",
+								expires: new Date(
+									new Date().getTime() + 100 * 1000
+								),
+								httpOnly: true,
+							})
+							.send(result);
 					})
 					.catch((err) => {
 						return res.sendStatus(404);
 					});
-			} 
-			else return res.sendStatus(404);
+			} else return res.sendStatus(404);
 		})
 		.catch((err) => {
 			return res.sendStatus(404);
