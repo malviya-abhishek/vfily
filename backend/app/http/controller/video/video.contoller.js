@@ -136,7 +136,6 @@ exports.sharedPost = (req, res) => {
 };
 
 exports.sharedGet = (req, res) => {
-	let token = jwt.sign(req.body, JWT_SECRET);
 	console.log(token);
 	LinkModel.findById(req.params.sharedId)
 		.then((result) => {
