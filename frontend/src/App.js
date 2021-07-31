@@ -38,7 +38,7 @@ function App() {
 				<Route
 					exact
 					path="/video/shared/:videoId"
-					render={(props) => <VideoPlayer {...props} shared={true} />}
+					render={(props) => <VideoPlayer {...props} shared={true} logged={logged} />}
 				/>
 
 				<Route

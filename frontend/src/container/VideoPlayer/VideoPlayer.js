@@ -1,142 +1,107 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import Player from "../../components/Player/Player";
 import Button from "../../components/Button/Button";
 import classes from "./VideoPlayer.module.css";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
-class VideoPlayer extends Component {
-	state = {
-		list: [],
+function VideoPlayer(props) {
+	const [state, setState] = useState({
 		url: null,
 		title: "",
 		description: "",
 		thumbnail: "",
 		sharedURL: null,
 		copied: false,
-		logged: null,
-	};
+	});
 
-	componentDidMount() {
-		if (this.props.shared) {
-			
-			const endpoint =
-				"http://localhost:3030/videos/" +
-				(this.props.shared ? "shared/" : "") +
-				this.props.match.params.videoId;
+	useEffect(() => {
+		const endpoint =
+			"http://localhost:3030/videos/" +
+			(props.shared ? "shared/" : "") +
+			props.match.params.videoId;
 
-			axios
-				.get(endpoint, { withCredentials: true })
-				.then((result) => {
-					this.setState({
-						url: "http://localhost:3030/video/" + result.data.url,
-						title: result.data.title,
-						description: result.data.description,
-						thumbnail:
-							"http://localhost:3030/images/" +
-							result.data.thumbnail,
-					});
-				})
-				.catch((err) => {
-					console.log(["ComponentDIDmount BAD"], err);
+		axios
+			.get(endpoint, { withCredentials: true })
+			.then((result) => {
+				setState({
+					url: "http://localhost:3030/video/" + result.data.url,
+					title: result.data.title,
+					description: result.data.description,
+					thumbnail:
+						"http://localhost:3030/images/" + result.data.thumbnail,
+					sharedURL: state.sharedURL,
+					copied: state.copied,
 				});
-
-			
-		} else {
-			
-			this.setState({
-				logged: this.props.logged,
+			})
+			.catch((err) => {
+				console.log(["ComponentDIDmount BAD"], err);
 			});
+	}, [props.logged]);
 
-			const endpoint =
-				"http://localhost:3030/videos/" +
-				(this.props.shared ? "shared/" : "") +
-				this.props.match.params.videoId;
-
-			axios
-				.get(endpoint, { withCredentials: true })
-				.then((result) => {
-					this.setState({
-						url: "http://localhost:3030/video/" + result.data.url,
-						title: result.data.title,
-						description: result.data.description,
-						thumbnail:
-							"http://localhost:3030/images/" +
-							result.data.thumbnail,
-					});
-				})
-				.catch((err) => {
-					console.log(["ComponentDIDmount BAD"], err);
-				});
-
-		}
-	}
-
-	CopyURL() {
+	function CopyURL() {
 		const el = document.createElement("input");
-		el.value = this.state.sharedURL;
+		el.value = state.sharedURL;
 		document.body.appendChild(el);
 		el.select();
 		document.execCommand("copy");
 		document.body.removeChild(el);
-		this.setState({
+		setState({
+			...state,
 			copied: true,
 		});
 	}
 
-	CreateLinkHandler() {
+	function CreateLinkHandler() {
 		const data = {};
 		axios
 			.post(
-				`http://localhost:3030/videos/shared/${this.props.match.params.videoId}`,
+				`http://localhost:3030/videos/shared/${props.match.params.videoId}`,
 				data,
 				{ withCredentials: true }
 			)
 			.then((result) => {
-				this.setState({
+				setState({
+					...state,
 					sharedURL: `http://localhost:3000/video/shared/${result.data.sharedId}`,
 				});
 			})
 			.catch((err) => {});
 	}
 
-	render() {
-		return (
-			<div className={classes.playerBlock}>
-				<Player
-					title={this.state.title}
-					url={this.state.url}
-					description={this.state.description}
-					thumbnail={this.state.thumbnail}
-				/>
-				{this.state.logged ? (
-					<div className={classes["create-link"]}>
-						<Button
-							onClickHandler={this.CreateLinkHandler.bind(this)}
-						>
-							Create link
-						</Button>
-						{this.state.sharedURL ? (
-							<div className={classes["shared-link"]}>
-								<div className={classes.sharedURL}>
-									{this.state.sharedURL}
-								</div>
-								<i
-									onClick={this.CopyURL.bind(this)}
-									className={
-										this.state.copied
-											? "fas fa-check-double"
-											: "far fa-copy"
-									}
-								></i>
+	return (
+		<div className={classes.playerBlock}>
+			<Player
+				title={state.title}
+				url={state.url}
+				description={state.description}
+				thumbnail={state.thumbnail}
+			/>
+			{props.logged && props.shared != true ? (
+				<div className={classes["create-link"]}>
+					<Button onClickHandler={CreateLinkHandler}>
+						Create link
+					</Button>
+					{state.sharedURL ? (
+						<div className={classes["shared-link"]}>
+							<div className={classes.sharedURL}>
+								{state.sharedURL}
 							</div>
-						) : null}
-					</div>
-				) : null}
-			</div>
-		);
-	}
+							<i
+								onClick={CopyURL}
+								className={
+									state.copied
+										? "fas fa-check-double"
+										: "far fa-copy"
+								}
+							></i>
+						</div>
+					) : null}
+				</div>
+			) : null}
+		</div>
+	);
 }
+
 export default VideoPlayer;
 
-// http://localhost:3000/videos/60f5beb5a3df557661833595
