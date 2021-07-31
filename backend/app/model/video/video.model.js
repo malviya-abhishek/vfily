@@ -7,18 +7,27 @@ const videoSchema = new Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
 		},
+		shareId:{
+			type: mongoose.Schema.Types.ObjectId,
+			ref:"Share",
+			default:null
+		},
 		title: {
 			type: String,
 		},
-    description:{
-      type:String
-    },
-		url:{
-			type:String
+		description: {
+			type: String,
 		},
-		thumbnail:{
-			type:String
-		}
+		url: {
+			type: String,
+		},
+		thumbnail: {
+			type: String,
+		},
+		shared: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	{ timestamps: true }
 );
@@ -53,7 +62,7 @@ exports.createVideo = (videoData) => {
 
 exports.list = (perPage, page, userId) => {
 	return new Promise((resolve, reject) => {
-		Video.find( {userId: userId } )
+		Video.find({ userId: userId })
 			.limit(perPage)
 			.skip(perPage * page)
 			.exec(function (err, videos) {
@@ -71,4 +80,3 @@ exports.list = (perPage, page, userId) => {
 			});
 	});
 };
-

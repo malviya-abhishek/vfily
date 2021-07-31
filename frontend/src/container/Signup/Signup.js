@@ -21,9 +21,10 @@ class Signup extends Component {
 		axios
 			.post(endpointAuth, data)
 			.then((result) => {
-				localStorage.setItem("token", result.data.accessToken);
-				localStorage.setItem("refreshToken", result.data.refreshToken);
+				this.props.setName(result.data.name);
 				this.props.setLogged(1);
+				localStorage.setItem("name", result.data.name);
+				localStorage.setItem("logged", "1");
 			})
 			.catch((err) => {
 				console.log("[User request]", err.response, err);
@@ -94,7 +95,6 @@ class Signup extends Component {
 		axios
 			.post(endpoint, data)
 			.then((result) => {
-				console.log(result);
 				const loginData = {
 					email: data.email,
 					password: data.password,

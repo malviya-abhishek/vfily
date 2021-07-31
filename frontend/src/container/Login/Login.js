@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import classes from "./Login.module.css";
-axios.defaults.withCredentials = true
-
+axios.defaults.withCredentials = true;
 
 const endpoint = "http://localhost:3030/auth";
 
@@ -54,79 +53,80 @@ class Login extends Component {
 		if (!this.validEntry()) return;
 
 		const data = {
-		  email:this.state.email,
-		  password:this.state.password
-		}
+			email: this.state.email,
+			password: this.state.password,
+		};
 
 		axios
 			.post(endpoint, data)
 			.then((result) => {
+				this.props.setName(result.data.name);
 				this.props.setLogged(1);
+				localStorage.setItem("name", result.data.name);
+				localStorage.setItem("logged", "1");
 			})
 			.catch((err) => {
-				console.log( "[User request]" ,err.response, err);
+				console.log("[User request]", err.response, err);
 			});
 	};
 
 	render() {
+		if (this.state.logged === 1) return <Redirect to="/" />;
 
+		if (this.props.logged) {
+			return <Redirect to="/" />;
+		} else {
+			return (
+				<div style={{ marginTop: "50px" }}>
+					<div className={classes.wrapper}>
+						<h1 className={classes.title}>Login</h1>
+						<p className={classes["status"]}>
+							{" "}
+							{this.state.message}{" "}
+						</p>
 
-		if(this.state.logged === 1)
-			return <Redirect to="/" />
+						<form className={classes.form}>
+							{/* email */}
+							<div>
+								<input
+									className={classes["input-title"]}
+									type="email"
+									name="email"
+									value={this.state.email}
+									onChange={this.changeHandler}
+									placeholder="Email"
+								/>
+							</div>
+							{/* email end */}
 
-		if(this.props.logged){
-			return <Redirect to="/" />
-		}
-		else{
-		return (
-			<div style={{ marginTop: "50px" }}>
-				<div className={classes.wrapper}>
-					<h1 className={classes.title}>Login</h1>
-					<p className={classes["status"]}> {this.state.message} </p>
+							{/* password */}
+							<div>
+								<input
+									className={classes["input-title"]}
+									type="password"
+									name="password"
+									value={this.state.password}
+									onChange={this.changeHandler}
+									placeholder="Password"
+								/>
+							</div>
+							{/* password end */}
 
-					<form className={classes.form}>
-
-						{/* email */}
-						<div>
-							<input
-								className={classes["input-title"]}
-								type="email"
-								name="email"
-								value={this.state.email}
-								onChange={this.changeHandler}
-								placeholder="Email"
-							/>
-						</div>
-						{/* email end */}
-
-						{/* password */}
-						<div>
-							<input
-								className={classes["input-title"]}
-								type="password"
-								name="password"
-								value={this.state.password}
-								onChange={this.changeHandler}
-								placeholder="Password"
-							/>
-						</div>
-						{/* password end */}
-
-
-						<button
-							type="submit"
-							className={classes["sub-btn"]}
-							onClick={this.handleUpload}
-						>
-							Login
-						</button>
-					</form>
-					<Link to="/signup" className={classes["link"]}>
-						Create Account
-					</Link>
+							<button
+								type="submit"
+								className={classes["sub-btn"]}
+								onClick={this.handleUpload}
+							>
+								Login
+							</button>
+						</form>
+						<Link to="/signup" className={classes["link"]}>
+							Create Account
+						</Link>
+					</div>
 				</div>
-			</div>
-		);}
+			);
+		}
 	}
 }
 
