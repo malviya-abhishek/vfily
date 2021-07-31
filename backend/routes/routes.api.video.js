@@ -30,5 +30,6 @@ exports.routesConfig = function (app) {
 		CookieValidationMiddleware.validCookieNeeded,
 		VideoController.sharedPost,
 	]);
-	app.get("/videos/shared/:sharedId", [VideoController.sharedGet]);
+	app.get("/videos/shared/:videoId", [VideoController.sharedGet]);
 };
+

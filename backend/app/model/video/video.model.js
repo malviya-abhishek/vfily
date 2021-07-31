@@ -7,11 +7,6 @@ const videoSchema = new Schema(
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",
 		},
-		shareId:{
-			type: mongoose.Schema.Types.ObjectId,
-			ref:"Share",
-			default:null
-		},
 		title: {
 			type: String,
 		},
@@ -79,4 +74,13 @@ exports.list = (perPage, page, userId) => {
 				}
 			});
 	});
+};
+
+exports.patchVideo = (id, videoData) => {
+	return Video.findOneAndUpdate(
+		{
+			_id: id,
+		},
+		videoData
+	);
 };

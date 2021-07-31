@@ -1,7 +1,6 @@
 const path = require("path");
 const fs = require("fs-extra");
 const VideoModel = require("../../../model/video/video.model");
-const LinkModel = require("../../../model/link/link.model");
 require("dotenv").config();
 const JWT_SECRET = process.env.JWT_SECRET;
 const jwt = require("jsonwebtoken");
@@ -130,39 +129,37 @@ exports.videoLink = (req, res) => {
 };
 
 exports.sharedPost = (req, res) => {
-
-	LinkModel.CreateLink(req.params.videoId)
+	VideoModel.patchVideo(req.params.videoId, { shared: true })
 		.then((result) => {
-			res.send({ sharedId: result._id });
+			res.send({ sharedId: req.params.videoId });
 		})
 		.catch((err) => {
 			res.send({ err: "invalid video id" });
 		});
-		
 };
 
 exports.sharedGet = (req, res) => {
-	let token = jwt.sign({ userId: "temporary" }, JWT_SECRET);
-	LinkModel.findById(req.params.sharedId)
+	VideoModel.findById(req.params.videoId)
 		.then((result) => {
-			if (result) {
-				VideoModel.findById(result.videoId)
-					.then((result) => {
-						return res
-							.status(202)
-							.cookie("token", token, {
-								sameSite: "strict",
-								path: "/",
-								expires: new Date(
-									new Date().getTime() + 100 * 1000
-								),
-								httpOnly: true,
-							})
-							.send(result);
-					})
-					.catch((err) => {
-						return res.sendStatus(404);
-					});
+			if (result.shared) {
+
+				if (req.cookies && req.cookies.token) {
+					return res.send(result);
+				} else {
+
+					let token = jwt.sign({ userId: "temporary" }, JWT_SECRET);
+					return res
+						.status(202)
+						.cookie("token", token, {
+							sameSite: "strict",
+							path: "/",
+							expires: new Date(
+								new Date().getTime() + 100 * 1000
+							),
+							httpOnly: true,
+						})
+						.send(result);
+				}
 			} else return res.sendStatus(404);
 		})
 		.catch((err) => {
