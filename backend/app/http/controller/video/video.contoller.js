@@ -129,24 +129,27 @@ exports.videoLink = (req, res) => {
 };
 
 exports.sharedPost = (req, res) => {
-	VideoModel.patchVideo(req.params.videoId, { shared: true })
-		.then((result) => {
-			res.send({ sharedId: req.params.videoId });
-		})
-		.catch((err) => {
-			res.send({ err: "invalid video id" });
-		});
+	VideoModel.findById(req.params.videoId).then((result) => {
+		if (req.jwt.userId != "" + result.userId) return res.sendStatus(404);
+		else {
+			VideoModel.patchVideo(req.params.videoId, { shared: true })
+				.then((result) => {
+					res.send({ sharedId: req.params.videoId });
+				})
+				.catch((err) => {
+					res.send({ err: "invalid video id" });
+				});
+		}
+	});
 };
 
 exports.sharedGet = (req, res) => {
 	VideoModel.findById(req.params.videoId)
 		.then((result) => {
 			if (result.shared) {
-
 				if (req.cookies && req.cookies.token) {
 					return res.send(result);
 				} else {
-
 					let token = jwt.sign({ userId: "temporary" }, JWT_SECRET);
 					return res
 						.status(202)

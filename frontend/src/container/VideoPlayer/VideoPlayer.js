@@ -24,13 +24,15 @@ function VideoPlayer(props) {
 		axios
 			.get(endpoint, { withCredentials: true })
 			.then((result) => {
+
+
 				setState({
 					url: "http://localhost:3030/video/" + result.data.url,
 					title: result.data.title,
 					description: result.data.description,
 					thumbnail:
 						"http://localhost:3030/images/" + result.data.thumbnail,
-					sharedURL: state.sharedURL,
+					sharedURL:  result.data.shared ? `http://localhost:3000/video/shared/${props.match.params.videoId}` : state.sharedURL ,
 					copied: state.copied,
 				});
 			})
