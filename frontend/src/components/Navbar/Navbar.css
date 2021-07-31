@@ -20,8 +20,6 @@
 	text-decoration: none;
 }
 
-
-
 .fa-react {
 	margin-left: 0.2rem;
 	font-size: 1.2rem;
@@ -44,6 +42,13 @@
 	padding: 0.5rem 1rem;
 }
 
+.nav-name {
+	color: white;
+	text-decoration: none;
+	padding: 0.5rem 1rem;
+	justify-content: end;
+}
+
 .nav-links:hover {
 	background-color: #6d76f7;
 	border-radius: 4px;
@@ -60,11 +65,9 @@
 
 .menu-icon {
 	display: none;
-	
 }
 
 @media screen and (max-width: 960px) {
-
 	.NavbarItems {
 		position: relative;
 	}
@@ -138,5 +141,4 @@
 		background: white;
 		color: #6668f4;
 	}
-
 }

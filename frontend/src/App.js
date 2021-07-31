@@ -12,17 +12,20 @@ import { useState, useEffect } from "react";
 
 function App() {
 	const [logged, setLogged] = useState(0);
+	const [name, setName] = useState(null);
 
-	// useEffect(() => {
-	// 	const token = localStorage.getItem("token");
-	// 	if (token) {
-	// 		setLogged(1);
-	// 	}
-	// }, []);
+	useEffect(() => {
+		const loggedLocal = localStorage.getItem("logged");
+		const nameLocal = localStorage.getItem("name");
+		if (loggedLocal === "1") {
+			setLogged(1);
+			setName(nameLocal);
+		}
+	}, []);
 
 	return (
 		<div className="App">
-			<Navbar logged={logged} />
+			<Navbar logged={logged} name={name} />
 			<Switch>
 				<Route
 					exact
@@ -41,7 +44,9 @@ function App() {
 				<Route
 					exact
 					path="/video/:videoId"
-					render={(props) => <VideoPlayer {...props} logged={logged}  />}
+					render={(props) => (
+						<VideoPlayer {...props} logged={logged} />
+					)}
 				/>
 
 				{/* <Route exact path="/video/:videoId" component={VideoPlayer} /> */}
@@ -59,6 +64,7 @@ function App() {
 							{...props}
 							logged={logged}
 							setLogged={setLogged}
+							setName={setName}
 						/>
 					)}
 				/>
@@ -70,6 +76,7 @@ function App() {
 							{...props}
 							logged={logged}
 							setLogged={setLogged}
+							setName={setName}
 						/>
 					)}
 				/>
@@ -81,6 +88,7 @@ function App() {
 							{...props}
 							logged={logged}
 							setLogged={setLogged}
+							setName = {setName}
 						/>
 					)}
 				/>

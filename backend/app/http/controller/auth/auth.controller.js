@@ -31,7 +31,7 @@ exports.login = (req, res) => {
 				// expires: new Date(new Date().getTime() + 100 * 1000),
 				httpOnly: true,
 			})
-			.send("cookie being initialised");
+			.send({ ...req.body });
 	} catch (err) {
 		return res.status(500).send({ error: err });
 	}

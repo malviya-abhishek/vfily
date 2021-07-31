@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import classes from "./VideoPallet.module.css";
 import PleaseLogin from "../../components/Pleaselogin/PleaseLogin";
@@ -8,13 +8,11 @@ axios.defaults.withCredentials = true;
 
 const endpoint = "http://localhost:3030/videos";
 
-class VideoPallet extends Component {
-	state = {
-		list: [],
-	};
+function VideoPallet(props) {
+	const [list, setList] = useState([]);
 
-	componentDidMount() {
-		if (this.props.logged) {
+	useEffect(() => {
+		if (props.logged) {
 			axios
 				.get(endpoint, { withCredentials: true })
 				.then((list) => {
@@ -32,32 +30,31 @@ class VideoPallet extends Component {
 							/>
 						);
 					});
-					this.setState({ list: temp });
+					setList(temp);
 				})
 				.catch((err) => {
 					console.log(err);
 				});
 		}
-	}
+	}, [props.logged]);
 
-	render() {
-		return this.props.logged === 1 ? (
-			this.state.list.length ? (
-				<div className={classes.container}>{this.state.list}</div>
-			) : (
-				<PleaseLogin
-					message="No Video uploaded"
-					link="/upload"
-					btnMsg="upload"
-				/>
-			)
+	return props.logged === 1 ? (
+		list.length ? (
+			<div className={classes.container}>{list}</div>
 		) : (
 			<PleaseLogin
-				message="Please login to proceed"
-				link="/login"
-				btnMsg="login"
+				message="No Video uploaded"
+				link="/upload"
+				btnMsg="upload"
 			/>
-		);
-	}
+		)
+	) : (
+		<PleaseLogin
+			message="Please login to proceed"
+			link="/login"
+			btnMsg="login"
+		/>
+	);
 }
+
 export default VideoPallet;

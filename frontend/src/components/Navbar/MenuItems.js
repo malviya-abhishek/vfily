@@ -1,9 +1,9 @@
 export const MenuItems = [
 	{
-		title: "Home",
-		url: "/",
+		title: "name",
+		url: "/profile",
 		cName: "nav-links",
-		logged:-1,
+		logged:1,
 	},
 	{
 		title: "Upload",

@@ -130,6 +130,7 @@ exports.videoLink = (req, res) => {
 };
 
 exports.sharedPost = (req, res) => {
+
 	LinkModel.CreateLink(req.params.videoId)
 		.then((result) => {
 			res.send({ sharedId: result._id });
@@ -137,6 +138,7 @@ exports.sharedPost = (req, res) => {
 		.catch((err) => {
 			res.send({ err: "invalid video id" });
 		});
+		
 };
 
 exports.sharedGet = (req, res) => {

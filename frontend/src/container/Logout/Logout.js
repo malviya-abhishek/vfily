@@ -11,11 +11,14 @@ function Logout(props) {
 			.get(endpoint, { withCredentials: true })
 			.then((res) => {
 				props.setLogged(0);
+				props.setName(null);
+				localStorage.setItem("logged", "0");
+				localStorage.setItem("name", "");
 			})
 			.catch((e) => {
 				console.log(e);
 			});
-	}, []);
+	});
 
 	return <Redirect to="/" />;
 }
