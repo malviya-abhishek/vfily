@@ -8,6 +8,7 @@ import VideoUpload from "./container/VideoUpload/VideoUpload";
 import Signup from "./container/Signup/Signup";
 import Login from "./container/Login/Login";
 import Logout from "./container/Logout/Logout";
+import Profile from "./container/Profile/Profile";
 import { useState, useEffect } from "react";
 
 function App() {
@@ -37,8 +38,18 @@ function App() {
 
 				<Route
 					exact
+					path="/profile"
+					render={(props) => (
+						<Profile {...props} logged={logged} />
+					)}
+				/>
+
+				<Route
+					exact
 					path="/video/shared/:videoId"
-					render={(props) => <VideoPlayer {...props} shared={true} logged={logged} />}
+					render={(props) => (
+						<VideoPlayer {...props} shared={true} logged={logged} />
+					)}
 				/>
 
 				<Route
@@ -88,7 +99,7 @@ function App() {
 							{...props}
 							logged={logged}
 							setLogged={setLogged}
-							setName = {setName}
+							setName={setName}
 						/>
 					)}
 				/>

@@ -1,0 +1,17 @@
+.container{
+  height: 100px;
+  border: solid rgb(255, 0, 106) 2px ;
+}
+
+.video-img{
+  width: 180px;
+  border: solid red 2px ;
+}
+
+.details{
+  display: inline-block;
+  border: solid yellow 2px ;
+  position: relative;
+  top: -50%;
+  left: 50px;
+}

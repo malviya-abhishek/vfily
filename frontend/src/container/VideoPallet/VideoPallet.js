@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import classes from "./VideoPallet.module.css";
 import PleaseLogin from "../../components/Pleaselogin/PleaseLogin";

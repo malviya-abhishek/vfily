@@ -17,6 +17,8 @@ exports.login = (req, res) => {
 
 		req.body.refreshKey = salt;
 
+
+
 		let token = jwt.sign(req.body, JWT_SECRET);
 
 		let b = Buffer.from(hash);

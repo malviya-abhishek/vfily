@@ -24,15 +24,16 @@ function VideoPlayer(props) {
 		axios
 			.get(endpoint, { withCredentials: true })
 			.then((result) => {
-
-
+				console.log(result.data);
 				setState({
 					url: "http://localhost:3030/video/" + result.data.url,
 					title: result.data.title,
 					description: result.data.description,
 					thumbnail:
 						"http://localhost:3030/images/" + result.data.thumbnail,
-					sharedURL:  result.data.shared ? `http://localhost:3000/video/shared/${props.match.params.videoId}` : state.sharedURL ,
+					sharedURL: result.data.shared
+						? `http://localhost:3000/video/shared/${props.match.params.videoId}`
+						: state.sharedURL,
 					copied: state.copied,
 				});
 			})
@@ -55,7 +56,7 @@ function VideoPlayer(props) {
 	}
 
 	function CreateLinkHandler() {
-		const data = {};
+		const data = {shared: true};
 		axios
 			.post(
 				`http://localhost:3030/videos/shared/${props.match.params.videoId}`,
@@ -71,6 +72,24 @@ function VideoPlayer(props) {
 			.catch((err) => {});
 	}
 
+	function DeleteLinkHandler(){
+		const data = { shared: false };
+		axios
+			.post(
+				`http://localhost:3030/videos/shared/${props.match.params.videoId}`,
+				data,
+				{ withCredentials: true }
+			)
+			.then((result) => {
+				setState({
+					...state,
+					sharedURL: null,
+					copied: false,
+				});
+			})
+			.catch((err) => {});
+	}
+
 	return (
 		<div className={classes.playerBlock}>
 			<Player
@@ -79,26 +98,34 @@ function VideoPlayer(props) {
 				description={state.description}
 				thumbnail={state.thumbnail}
 			/>
-			{props.logged && props.shared != true ? (
+
+			{props.logged && props.shared !== true ? (
 				<div className={classes["create-link"]}>
-					<Button onClickHandler={CreateLinkHandler}>
-						Create link
-					</Button>
 					{state.sharedURL ? (
-						<div className={classes["shared-link"]}>
-							<div className={classes.sharedURL}>
-								{state.sharedURL}
+						<>
+							<Button danger = {true} onClickHandler={DeleteLinkHandler}>
+								Delete Link
+							</Button>
+
+							<div className={classes["shared-link"]}>
+								<div className={classes.sharedURL}>
+									{state.sharedURL}
+								</div>
+								<i
+									onClick={CopyURL}
+									className={
+										state.copied
+											? "fas fa-check-double"
+											: "far fa-copy"
+									}
+								></i>
 							</div>
-							<i
-								onClick={CopyURL}
-								className={
-									state.copied
-										? "fas fa-check-double"
-										: "far fa-copy"
-								}
-							></i>
-						</div>
-					) : null}
+						</>
+					) : (
+						<Button onClickHandler={CreateLinkHandler}>
+							Share link
+						</Button>
+					)}
 				</div>
 			) : null}
 		</div>
@@ -106,4 +133,3 @@ function VideoPlayer(props) {
 }
 
 export default VideoPlayer;
-

@@ -60,9 +60,10 @@ class Login extends Component {
 		axios
 			.post(endpoint, data)
 			.then((result) => {
-				this.props.setName(result.data.name);
+				let name = result.data.name.split(" ")[0];
+				this.props.setName(name);
 				this.props.setLogged(1);
-				localStorage.setItem("name", result.data.name);
+				localStorage.setItem("name", name);
 				localStorage.setItem("logged", "1");
 			})
 			.catch((err) => {

@@ -1,16 +1,33 @@
-.btn{
-  padding: 15px;
-  font-size: large;
-  border: transparent;
-  border-radius: 5px;
-  background: 	rgba(77, 63, 252, 1) ;
-  color: white;
-  cursor: pointer;
+.btn {
+	padding: 15px;
+	font-size: large;
+	border: transparent;
+	border-radius: 5px;
+	background: rgba(77, 63, 252, 1);
+	color: white;
+	cursor: pointer;
 }
 
 .btn:hover {
-  background-color: white ;
-  color: rgba(77, 63, 252, 1);
-	transition: ease-in .5s ;
-  cursor: pointer;
+	background-color: white;
+	color: rgba(77, 63, 252, 1);
+	transition: ease-in 0.5s;
+	cursor: pointer;
+}
+
+.btn-red {
+	padding: 15px;
+	font-size: large;
+	border: transparent;
+	border-radius: 5px;
+	background: rgba(204, 27, 27, 1);
+	color: white;
+	cursor: pointer;
+}
+.btn-red:hover {
+	background-color: white;
+	color: rgba(204, 27, 27, 1);
+
+	transition: ease-in 0.5s;
+	cursor: pointer;
 }

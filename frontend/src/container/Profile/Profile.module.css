@@ -1,0 +1,34 @@
+.container{
+  border: solid black 2px;
+  margin: 20px;
+}
+
+.detail{
+  border: solid red 2px;
+  
+}
+
+.profile-img{
+  border-radius: 50px;
+  border: solid black 2px;
+  
+}
+
+.name{
+  display: inline;
+  border: solid black 2px;
+  margin-top: 20px;
+}
+
+.video-container{
+  border: solid black 2px;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 730px) {
+  .detail{
+    display: block;
+    text-align: center;
+  }
+}
+

@@ -132,7 +132,7 @@ exports.sharedPost = (req, res) => {
 	VideoModel.findById(req.params.videoId).then((result) => {
 		if (req.jwt.userId != "" + result.userId) return res.sendStatus(404);
 		else {
-			VideoModel.patchVideo(req.params.videoId, { shared: true })
+			VideoModel.patchVideo(req.params.videoId, { shared: req.body.shared })
 				.then((result) => {
 					res.send({ sharedId: req.params.videoId });
 				})
@@ -146,6 +146,8 @@ exports.sharedPost = (req, res) => {
 exports.sharedGet = (req, res) => {
 	VideoModel.findById(req.params.videoId)
 		.then((result) => {
+
+
 			if (result.shared) {
 				if (req.cookies && req.cookies.token) {
 					return res.send(result);
