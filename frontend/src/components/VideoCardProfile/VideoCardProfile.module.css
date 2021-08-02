@@ -3,6 +3,7 @@
 	height: 90px;
 	border: solid white 2px;
 	border-radius: 5px;
+	margin-bottom: 10px;
 }
 
 .video-img {
@@ -16,4 +17,18 @@
 	margin-left: 200px;
 	margin-top: 10px;
 	font-size: 1.1rem;
+}
+
+
+@media screen and (max-width: 730px) {
+  .video-img{
+		height: 90px;
+		width: 140px;
+	}
+	.container{
+		height: 90px;
+	}
+	.details{
+		margin-left: 170px;
+	}
 }

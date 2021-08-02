@@ -8,7 +8,7 @@ function Profile(props) {
 
 	return (
 		<div className={classes.container}>
-			<div className={classes.detail} >
+			<div className={classes.detail}>
 				<img
 					className={classes["profile-img"]}
 					src="images/default_profile.png"
@@ -16,10 +16,16 @@ function Profile(props) {
 				<div className={classes.name}>First Name</div>
 			</div>
 
-      <div className={classes["video-container"]} >
-        <VideoCardProfile  />
-      </div>
-
+			<div className={classes["video-container"]}>
+				<VideoCardProfile />
+				<VideoCardProfile />
+				<VideoCardProfile />
+				<VideoCardProfile />
+				<VideoCardProfile />
+				<VideoCardProfile />
+				<VideoCardProfile />
+				<VideoCardProfile />
+			</div>
 		</div>
 	);
 }

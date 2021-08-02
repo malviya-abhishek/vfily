@@ -1,5 +1,7 @@
 .container {
-	margin: 30px;
+  margin-top: 10px;
+	margin-left: 30px;
+	margin-right: 30px;
 }
 
 .detail {
@@ -26,6 +28,10 @@
 }
 
 @media screen and (max-width: 730px) {
+  .container{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
   .detail{
     height: max-content;
     display: block;
