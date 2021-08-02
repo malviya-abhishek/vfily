@@ -1,34 +1,44 @@
-.container{
-  border: solid black 2px;
-  margin: 20px;
+.container {
+	margin: 30px;
 }
 
-.detail{
-  border: solid red 2px;
-  
+.detail {
+  background-color: rgb(250, 250, 250);
+  height: 110px;
+	border: solid white 2px;  
+  border-radius: 5px;
 }
 
-.profile-img{
-  border-radius: 50px;
-  border: solid black 2px;
-  
+.profile-img {
+  float: left;
+  height: 100px;
+	border-radius: 50px;
 }
 
-.name{
-  display: inline;
-  border: solid black 2px;
-  margin-top: 20px;
+.name {
+  margin-left: 150px;
+  margin-top: 40px;
+	/* border: solid black 2px; */
 }
 
-.video-container{
-  border: solid black 2px;
-  margin-top: 20px;
+.video-container {
+	margin-top: 20px;
 }
 
 @media screen and (max-width: 730px) {
   .detail{
+    height: max-content;
     display: block;
     text-align: center;
   }
+  .name{
+    display: block;
+    margin:0;
+  }
+  .profile-img{
+    display: block;
+    float: none;
+    margin: auto;
+    margin-bottom: 10px;
+  }
 }
-
