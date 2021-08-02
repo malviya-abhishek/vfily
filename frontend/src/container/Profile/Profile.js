@@ -17,7 +17,7 @@ function Profile(props) {
 			</div>
 
       <div className={classes["video-container"]} >
-        <VideoCardProfile />
+        <VideoCardProfile  />
       </div>
 
 		</div>
