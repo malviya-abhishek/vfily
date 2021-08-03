@@ -19,16 +19,23 @@
 	font-size: 1.1rem;
 }
 
+.share-btn {
+	margin-top: 20px;
+	width: 120px;
+	background-color: rgb(100, 94, 254);
+	border-radius: 5px;
+}
 
 @media screen and (max-width: 730px) {
-  .video-img{
+	.video-img {
 		height: 90px;
 		width: 140px;
 	}
-	.container{
+	.container {
 		height: 90px;
 	}
-	.details{
+	.details {
 		margin-left: 170px;
 	}
+
 }

@@ -1,0 +1,20 @@
+.btn-private {
+	border: none;
+	border-radius: 5px;
+	background-color: #ff4848;
+	height: 30px;
+	width: 60px;
+	font-size: x-small;
+  transition:all 0.5s;
+	margin-left: 60px;
+}
+
+.btn-shared {
+	border: none;
+	border-radius: 5px;
+	background-color: #28ffbf;
+	height: 30px;
+	width: 60px;
+	font-size: x-small;
+  transition:all 0.5s;
+}

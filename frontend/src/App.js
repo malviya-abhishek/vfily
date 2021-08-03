@@ -24,6 +24,14 @@ function App() {
 		}
 	}, []);
 
+	useEffect(() => {
+		setInterval(() => {
+			console.log("log out");
+			localStorage.removeItem("logged");
+			localStorage.removeItem("name");
+		}, 1000 * 60 * 60 * 5);
+	});
+
 	return (
 		<div className="App">
 			<Navbar logged={logged} name={name} />
@@ -39,9 +47,7 @@ function App() {
 				<Route
 					exact
 					path="/profile"
-					render={(props) => (
-						<Profile {...props} logged={logged} />
-					)}
+					render={(props) => <Profile {...props} logged={logged} />}
 				/>
 
 				<Route

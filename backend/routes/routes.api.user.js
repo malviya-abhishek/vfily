@@ -2,10 +2,8 @@ const UserController = require("../app/http/controller/user/user.controller");
 const VerifyUserMiddleware = require("../app/http/middleware/user/verify.user.middleware");
 const AuthValidationMiddleware = require("../app/http/middleware/auth/auth.validation.middleware");
 const AuthPermissionMiddleware = require("../app/http/middleware/auth/auth.permission.middleware");
+const CookieValidationMiddleware = require("../app/http/middleware/auth/cookie.validation.middleware");
 
-const ADMIN = parseInt(process.env.ADMIN);
-const CUSTOMER = parseInt(process.env.CUSTOMER);
-const SELLER = parseInt(process.env.SELLER);
 
 exports.routesConfig = function (app) {
 	app.post("/users", [
@@ -13,23 +11,21 @@ exports.routesConfig = function (app) {
 		UserController.insert,
 	]);
 
-	app.get("/users/:userId", [
-		AuthValidationMiddleware.validJWTNeeded,
-		AuthPermissionMiddleware.minimumPermissionLevelRequired(CUSTOMER),
-		AuthPermissionMiddleware.sameUserCanDoThisAction,
+	app.get("/users/usercookie", [
+		CookieValidationMiddleware.validCookieNeeded,
+		// AuthValidationMiddleware.validJWTNeeded,
+		// AuthPermissionMiddleware.sameUserCanDoThisAction,
 		UserController.getById,
 	]);
 
-	app.patch("/user/:userId", [
+	app.patch("/users/:userId", [
 		AuthValidationMiddleware.validJWTNeeded,
-		AuthPermissionMiddleware.minimumPermissionLevelRequired(CUSTOMER),
 		AuthPermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
 		UserController.patchById,
 	]);
 
 	app.delete("/users/:userId", [
 		AuthValidationMiddleware.validJWTNeeded,
-		AuthPermissionMiddleware.minimumPermissionLevelRequired(CUSTOMER),
 		UserController.removeById,
 	]);
 };
