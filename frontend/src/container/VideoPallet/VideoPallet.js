@@ -3,10 +3,12 @@ import VideoCard from "../../components/VideoCard/VideoCard";
 import classes from "./VideoPallet.module.css";
 import PleaseLogin from "../../components/Pleaselogin/PleaseLogin";
 import axios from "axios";
+import config from "./../../config";
 
 axios.defaults.withCredentials = true;
 
 const endpoint = "http://localhost:3030/videos";
+// const endpoint = config.API_URL;
 
 function VideoPallet(props) {
 	const [list, setList] = useState([]);

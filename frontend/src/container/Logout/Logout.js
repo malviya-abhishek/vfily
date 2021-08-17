@@ -7,13 +7,13 @@ const endpoint = "http://localhost:3030/auth/logout";
 
 function Logout(props) {
 	useEffect(() => {
+		localStorage.setItem("logged", "0");
+		localStorage.setItem("name", "");
 		axios
 			.get(endpoint, { withCredentials: true })
 			.then((res) => {
 				props.setLogged(0);
 				props.setName(null);
-				localStorage.setItem("logged", "0");
-				localStorage.setItem("name", "");
 			})
 			.catch((e) => {
 				console.log(e);

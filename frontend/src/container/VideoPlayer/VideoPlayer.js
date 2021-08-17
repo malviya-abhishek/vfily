@@ -92,13 +92,14 @@ function VideoPlayer(props) {
 
 	return (
 		<div className={classes.playerBlock}>
-			<Player
+			< span className={classes.video} >
+			<Player 
 				title={state.title}
 				url={state.url}
 				description={state.description}
 				thumbnail={state.thumbnail}
 			/>
-
+			</span >
 			{props.logged && props.shared !== true ? (
 				<div className={classes["create-link"]}>
 					{state.sharedURL ? (
@@ -128,6 +129,37 @@ function VideoPlayer(props) {
 					)}
 				</div>
 			) : null}
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
+			<div>asdad</div>
 		</div>
 	);
 }
