@@ -41,9 +41,8 @@
 	word-wrap: break-word;
 }
 
-.comment{
+.comments{
 	margin: 20px;
-
 }
 
 @media screen and (max-width: 730px) {

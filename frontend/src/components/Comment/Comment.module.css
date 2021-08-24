@@ -1,22 +1,40 @@
-.container{
+.container {
+  
 }
 
-.input-comment{
-  /* border: none; */
-  resize: none;
-  height: 100px;
-  width: 100%;
+.input-comment {
+	border: none;
+	resize: none;
+	height: 50px;
+	width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(200, 200, 200, .5);
 }
-
-
 
 .sub-btn {
-  margin-top: 10px;
-  float: right;
+	margin-top: 10px;
 	padding: 5px;
 	border: transparent;
 	border-radius: 5px;
 	background: rgba(77, 63, 252, 1);
 	color: white;
 	cursor: pointer;
+}
+
+.comments {
+	margin-top: 10px;
+}
+
+.comment {
+	background-color: rgba(200, 200, 200, .5);
+  margin-top: 30px;
+	margin-bottom: 20px;
+	padding: 10px;
+	border-radius: 7px;
+}
+
+.comment div {
+	margin-top: 5px;
+	margin-left: 10px;
 }

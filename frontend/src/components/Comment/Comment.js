@@ -2,6 +2,19 @@ import React from "react";
 import classes from "./Comment.module.css";
 
 function Comment(props) {
+	console.log(props.commentsData);
+
+	const list = [];
+
+	props.commentsData.forEach((e, idx) => {
+		list.push(
+			<div key={idx} className={classes.comment}>
+				{e.username}
+				<div>{e.comment}</div>
+			</div>
+		);
+	});
+
 	return (
 		<div className={classes["container"]}>
 			<form>
@@ -19,16 +32,20 @@ function Comment(props) {
 					/>
 				</div>
 				{/* Comment end */}
-				<button
-					type="submit"
-					className={classes["sub-btn"]}
-					onClick={() => {
-						console.log("Hello world");
-					}}
-				>
-					comment
-				</button>
+				<div style={{textAlign:"right"}} >
+					<button
+						type="submit"
+						className={classes["sub-btn"]}
+						onClick={() => {
+							console.log("Hello world");
+						}}
+					>
+						comment
+					</button>
+				</div>
 			</form>
+
+			<div className={classes["comments"]}>{list}</div>
 		</div>
 	);
 }

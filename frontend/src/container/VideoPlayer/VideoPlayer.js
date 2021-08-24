@@ -135,8 +135,13 @@ function VideoPlayer(props) {
 				</div>
 			) : null}
 
-			<div className={classes["comment"]}>
-				<Comment />
+			<div className={classes["comments"]}>
+				<Comment
+					commentsData={[
+						{ username: "Jake", comment: "Nice video" },
+						{ username: "Jake", comment: "Nice video" },
+					]}
+				/>
 			</div>
 		</div>
 	);
