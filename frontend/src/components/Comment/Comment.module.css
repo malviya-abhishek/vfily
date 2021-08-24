@@ -1,0 +1,22 @@
+.container{
+}
+
+.input-comment{
+  /* border: none; */
+  resize: none;
+  height: 100px;
+  width: 100%;
+}
+
+
+
+.sub-btn {
+  margin-top: 10px;
+  float: right;
+	padding: 5px;
+	border: transparent;
+	border-radius: 5px;
+	background: rgba(77, 63, 252, 1);
+	color: white;
+	cursor: pointer;
+}

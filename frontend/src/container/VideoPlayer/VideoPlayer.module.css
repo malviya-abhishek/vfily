@@ -41,6 +41,11 @@
 	word-wrap: break-word;
 }
 
+.comment{
+	margin: 20px;
+
+}
+
 @media screen and (max-width: 730px) {
 	.playerBlock {
 		display: grid;
@@ -59,4 +64,6 @@
 		top: 0px;
 		width: 100%;
 	} 
+	
+
 }

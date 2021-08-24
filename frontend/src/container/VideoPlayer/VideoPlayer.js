@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Player from "../../components/Player/Player";
 import Button from "../../components/Button/Button";
+import Comment from "../../components/Comment/Comment";
 import classes from "./VideoPlayer.module.css";
 import axios from "axios";
 axios.defaults.withCredentials = true;
@@ -56,7 +57,7 @@ function VideoPlayer(props) {
 	}
 
 	function CreateLinkHandler() {
-		const data = {shared: true};
+		const data = { shared: true };
 		axios
 			.post(
 				`http://localhost:3030/videos/shared/${props.match.params.videoId}`,
@@ -72,7 +73,7 @@ function VideoPlayer(props) {
 			.catch((err) => {});
 	}
 
-	function DeleteLinkHandler(){
+	function DeleteLinkHandler() {
 		const data = { shared: false };
 		axios
 			.post(
@@ -92,19 +93,23 @@ function VideoPlayer(props) {
 
 	return (
 		<div className={classes.playerBlock}>
-			< span className={classes.video} >
-			<Player 
-				title={state.title}
-				url={state.url}
-				description={state.description}
-				thumbnail={state.thumbnail}
-			/>
-			</span >
+			<span className={classes.video}>
+				<Player
+					title={state.title}
+					url={state.url}
+					description={state.description}
+					thumbnail={state.thumbnail}
+				/>
+			</span>
+
 			{props.logged && props.shared !== true ? (
 				<div className={classes["create-link"]}>
 					{state.sharedURL ? (
 						<>
-							<Button danger = {true} onClickHandler={DeleteLinkHandler}>
+							<Button
+								danger={true}
+								onClickHandler={DeleteLinkHandler}
+							>
 								Delete Link
 							</Button>
 
@@ -129,37 +134,10 @@ function VideoPlayer(props) {
 					)}
 				</div>
 			) : null}
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
-			<div>asdad</div>
+
+			<div className={classes["comment"]}>
+				<Comment />
+			</div>
 		</div>
 	);
 }
