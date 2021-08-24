@@ -2,10 +2,8 @@ import React from "react";
 import classes from "./Comment.module.css";
 
 function Comment(props) {
-	console.log(props.commentsData);
 
 	const list = [];
-
 	props.commentsData.forEach((e, idx) => {
 		list.push(
 			<div key={idx} className={classes.comment}>
@@ -23,12 +21,10 @@ function Comment(props) {
 					<textarea
 						className={classes["input-comment"]}
 						type="textarea"
-						name="description"
-						value={"Hello"}
-						onChange={() => {
-							console.log("Hello world");
-						}}
-						placeholder="Enter Description"
+						name="comment"
+						value={props.newComment}
+						onChange={props.changeHandler}
+						placeholder="Comment..."
 					/>
 				</div>
 				{/* Comment end */}
@@ -36,11 +32,9 @@ function Comment(props) {
 					<button
 						type="submit"
 						className={classes["sub-btn"]}
-						onClick={() => {
-							console.log("Hello world");
-						}}
+						onClick={props.commentUploadHandler}
 					>
-						comment
+						Post
 					</button>
 				</div>
 			</form>

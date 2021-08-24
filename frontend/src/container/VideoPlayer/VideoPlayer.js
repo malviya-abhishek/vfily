@@ -16,6 +16,24 @@ function VideoPlayer(props) {
 		copied: false,
 	});
 
+	const [comments, setComments] = useState([
+		{ username: "Jake", comment: "Nice video" },
+		{ username: "Jake", comment: "Nice video" },
+	]);
+
+	const [newComment, setNewComment] = useState("");
+
+	function changeHandler(e){
+		let t = e.target.value;
+		if(t.length < 201)
+			setNewComment(t);
+	}
+
+	function commentUploadHandler(e){
+		e.preventDefault();
+		console.log(newComment);
+	}
+
 	useEffect(() => {
 		const endpoint =
 			"http://localhost:3030/videos/" +
@@ -25,7 +43,6 @@ function VideoPlayer(props) {
 		axios
 			.get(endpoint, { withCredentials: true })
 			.then((result) => {
-				console.log(result.data);
 				setState({
 					url: "http://localhost:3030/video/" + result.data.url,
 					title: result.data.title,
@@ -136,12 +153,7 @@ function VideoPlayer(props) {
 			) : null}
 
 			<div className={classes["comments"]}>
-				<Comment
-					commentsData={[
-						{ username: "Jake", comment: "Nice video" },
-						{ username: "Jake", comment: "Nice video" },
-					]}
-				/>
+				<Comment newComment={newComment} commentUploadHandler={commentUploadHandler} changeHandler={changeHandler} commentsData={comments} />
 			</div>
 		</div>
 	);
