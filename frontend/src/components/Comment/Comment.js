@@ -6,9 +6,9 @@ function Comment(props) {
 	const list = [];
 	props.commentsData.forEach((e, idx) => {
 		list.push(
-			<div key={idx} className={classes.comment}>
+			<div key={e.id} className={classes.comment}>
 				{e.username}
-				<div>{e.comment}</div>
+				<div>{e.content}</div>
 			</div>
 		);
 	});

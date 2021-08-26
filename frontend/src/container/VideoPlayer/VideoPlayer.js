@@ -16,10 +16,7 @@ function VideoPlayer(props) {
 		copied: false,
 	});
 
-	const [comments, setComments] = useState([
-		{ username: "Jake", comment: "Nice video" },
-		{ username: "Jake", comment: "Nice video" },
-	]);
+	const [comments, setComments] = useState([]);
 
 	const [newComment, setNewComment] = useState("");
 
@@ -30,17 +27,40 @@ function VideoPlayer(props) {
 
 	function commentUploadHandler(e) {
 		e.preventDefault();
-		console.log(newComment);
+		if (newComment.length == 0) return;
+		const data = {
+			videoId: props.match.params.videoId,
+			content: newComment,
+		};
+		axios
+			.post(`http://localhost:3030/comments`, data, {
+				withCredentials: true,
+			})
+			.then((result) => {
+				console.log(result);
+				const temp = [
+					{
+						username: localStorage.getItem("name"),
+						content: result.data.content,
+					},
+				].concat(comments);
+				setComments(temp);
+				setNewComment("");
+			})
+			.catch((err) => {});
 	}
 
 	useEffect(() => {
-		const endpoint =
-			"http://localhost:3030/videos/" +
+		const basePoint = "http://localhost:3030";
+
+		const videoEndPoint =
+			basePoint +
+			"/videos/" +
 			(props.shared ? "shared/" : "") +
 			props.match.params.videoId;
 
 		axios
-			.get(endpoint, { withCredentials: true })
+			.get(videoEndPoint, { withCredentials: true })
 			.then((result) => {
 				setState({
 					url: "http://localhost:3030/video/" + result.data.url,
@@ -56,6 +76,31 @@ function VideoPlayer(props) {
 			})
 			.catch((err) => {
 				console.log(["ComponentDIDmount BAD"], err);
+			});
+
+		const commentEndPoint = basePoint + "/comments";
+		axios
+			.get(commentEndPoint, {
+				withCredentials: true,
+				params: {
+					videoId: props.match.params.videoId,
+				},
+			})
+			.then((result) => {
+				const temp = [];
+
+				result.data.forEach((e) => {
+					temp.push({
+						id: e.id,
+						username: e.userId.firstName,
+						content: e.content,
+					});
+				});
+
+				setComments(temp);
+			})
+			.catch((err) => {
+				console.log(err.body);
 			});
 	}, [props.logged]);
 
@@ -149,7 +194,7 @@ function VideoPlayer(props) {
 						</Button>
 					)}
 				</div>
-			) : null}
+			) : <span></span>}
 
 			{props.logged ? (
 				<div className={classes["comments"]}>
@@ -161,6 +206,7 @@ function VideoPlayer(props) {
 					/>
 				</div>
 			) : null}
+
 		</div>
 	);
 }

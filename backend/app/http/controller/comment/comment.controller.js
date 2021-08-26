@@ -10,10 +10,8 @@ exports.insert = (req, res) => {
 	CommentModel.createComment(newComment)
 		.then((result) => {
 			res.status(200).send(result.comment);
-			// res.sendStatus(202);
 		})
 		.catch((err) => {
-			console.log(err);
 			res.sendStatus(500);
 		});
 };
@@ -35,10 +33,8 @@ exports.get = async (req, res) => {
 				? parseInt(req.query.page)
 				: 0;
 
+		const comments = await CommentModel.list(videoId, limit, page);
 
-     const comments = await CommentModel.list(videoId, limit, page);
-
-     res.send(comments);
-    
+		res.send(comments);
 	}
 };

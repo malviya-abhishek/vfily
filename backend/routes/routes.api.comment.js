@@ -17,17 +17,17 @@ exports.routesConfig = function (app) {
 		CommentController.get
 	]);
 
-	app.get("/comments/:commentId", [
-		CookieValidationMiddleware.validCookieNeeded,
-		// CommentController.
-	]);
+	// app.get("/comments/:commentId", [
+	// 	CookieValidationMiddleware.validCookieNeeded,
+	// 	// CommentController.
+	// ]);
 
-	app.patch("/comments/:commentId", [
-		CookieValidationMiddleware.validCookieNeeded,
-		// CommentController.
-	]);
-	app.delete("/comments/:commentId", [
-		CookieValidationMiddleware.validCookieNeeded,
-		// CommentController.
-	]);
+	// app.patch("/comments/:commentId", [
+	// 	CookieValidationMiddleware.validCookieNeeded,
+	// 	// CommentController.
+	// ]);
+	// app.delete("/comments/:commentId", [
+	// 	CookieValidationMiddleware.validCookieNeeded,
+	// 	// CommentController.
+	// ]);
 };

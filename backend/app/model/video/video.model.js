@@ -61,7 +61,7 @@ exports.findComments = (id) => {
 				path: "userId",
 				model: "Users",
 				select: "firstName lastName",
-			},
+			}
 		})
 		.then((result) => {
 			result = result.toJSON();

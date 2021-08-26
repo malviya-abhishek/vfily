@@ -45,7 +45,6 @@ exports.findById = (id) => {
 };
 
 exports.createComment = async (commentData) => {
-	console.log(commentData);
 	const comment = new Comment(commentData);
 	const savedComment = await comment.save();
 	const pushedComment = await VideoModel.pushComment(
@@ -60,12 +59,7 @@ exports.createComment = async (commentData) => {
 exports.list = async (videoId, limit, page) => {
 	const videoData = await VideoModel.findComments(videoId, true);
 	const comments = videoData.comments;
-
-	// if (commentsRaw.length == 0) return commentsRaw;
-
-	// for (let i = 0; i < commentsRaw.length; ++i) {
-
-	// }
+	comments.reverse();
 
 	return comments;
 };
