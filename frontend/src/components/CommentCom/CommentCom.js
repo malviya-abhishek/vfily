@@ -1,10 +1,10 @@
 import React from "react";
-import classes from "./Comment.module.css";
+import classes from "./CommentCom.module.css";
 
-function Comment(props) {
+function CommentCom(props) {
 
 	const list = [];
-	props.commentsData.forEach((e, idx) => {
+	props.commentsData.forEach((e) => {
 		list.push(
 			<div key={e.id} className={classes.comment}>
 				{e.username}
@@ -16,7 +16,6 @@ function Comment(props) {
 	return (
 		<div className={classes["container"]}>
 			<form>
-				{/* Comment */}
 				<div>
 					<textarea
 						className={classes["input-comment"]}
@@ -27,7 +26,6 @@ function Comment(props) {
 						placeholder="Comment..."
 					/>
 				</div>
-				{/* Comment end */}
 				<div style={{textAlign:"right"}} >
 					<button
 						type="submit"
@@ -44,4 +42,4 @@ function Comment(props) {
 	);
 }
 
-export default Comment;
+export default CommentCom;

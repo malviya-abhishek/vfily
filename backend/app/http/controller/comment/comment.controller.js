@@ -1,4 +1,5 @@
 const CommentModel = require("../../../model/comment/comment.model");
+// const IO = require("../../../services/socket.service").IO;
 
 exports.insert = (req, res) => {
 	const newComment = {
@@ -9,7 +10,13 @@ exports.insert = (req, res) => {
 
 	CommentModel.createComment(newComment)
 		.then((result) => {
-			res.status(200).send(result.comment);
+			const temp = { ...result.comment._doc };
+			temp.name = req.jwt.name;
+			const eventEmitter = req.app.get("eventEmitter");
+
+			eventEmitter.emit("commentCreated", temp);
+
+			res.status(200).send(temp);
 		})
 		.catch((err) => {
 			res.sendStatus(500);

@@ -11,6 +11,10 @@ import Logout from "./container/Logout/Logout";
 import Profile from "./container/Profile/Profile";
 import { useState, useEffect } from "react";
 
+
+
+
+
 function App() {
 	const [logged, setLogged] = useState(0);
 	const [name, setName] = useState(null);

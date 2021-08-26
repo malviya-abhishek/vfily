@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { Redirect } from "react-router";
 import axios from "axios";
+
+// import {socket} from '../../context/socket'
+
 axios.defaults.withCredentials = true;
 
 const endpoint = "http://localhost:3030/auth/logout";
