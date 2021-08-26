@@ -116,7 +116,6 @@ exports.video = (req, res) => {
 
 exports.videoLink = (req, res) => {
 	let comments = false;
-	console.log(req.query);
 	if (req.query.comments == "true") comments = true;
 
 	VideoModel.findById(req.params.videoId, comments)
