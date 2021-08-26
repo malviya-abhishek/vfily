@@ -28,6 +28,7 @@ app.use(
 require("./routes/routes.api.user").routesConfig(app);
 require("./routes/routes.api.auth").routesConfig(app);
 require("./routes/routes.api.video").routesConfig(app);
+require("./routes/routes.api.comment").routesConfig(app);
 
 // Cookie parser and Static file access Don't change the order
 // const cookieParser = require("cookie-parser");

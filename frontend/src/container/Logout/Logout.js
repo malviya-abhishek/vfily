@@ -11,13 +11,12 @@ function Logout(props) {
 		localStorage.setItem("name", "");
 		axios
 			.get(endpoint, { withCredentials: true })
-			.then((res) => {
-				props.setLogged(0);
-				props.setName(null);
-			})
+			.then((res) => {})
 			.catch((e) => {
 				console.log(e);
 			});
+		props.setLogged(0);
+		props.setName(null);
 	});
 
 	return <Redirect to="/" />;

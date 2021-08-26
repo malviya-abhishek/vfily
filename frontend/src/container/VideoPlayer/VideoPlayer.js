@@ -23,13 +23,12 @@ function VideoPlayer(props) {
 
 	const [newComment, setNewComment] = useState("");
 
-	function changeHandler(e){
+	function changeHandler(e) {
 		let t = e.target.value;
-		if(t.length < 201)
-			setNewComment(t);
+		if (t.length < 201) setNewComment(t);
 	}
 
-	function commentUploadHandler(e){
+	function commentUploadHandler(e) {
 		e.preventDefault();
 		console.log(newComment);
 	}
@@ -152,9 +151,16 @@ function VideoPlayer(props) {
 				</div>
 			) : null}
 
-			<div className={classes["comments"]}>
-				<Comment newComment={newComment} commentUploadHandler={commentUploadHandler} changeHandler={changeHandler} commentsData={comments} />
-			</div>
+			{props.logged ? (
+				<div className={classes["comments"]}>
+					<Comment
+						newComment={newComment}
+						commentUploadHandler={commentUploadHandler}
+						changeHandler={changeHandler}
+						commentsData={comments}
+					/>
+				</div>
+			) : null}
 		</div>
 	);
 }

@@ -23,6 +23,7 @@ const videoSchema = new Schema(
 			type: Boolean,
 			default: false,
 		},
+		comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 	},
 	{ timestamps: true }
 );
@@ -41,13 +42,31 @@ videoSchema.findById = function (cb) {
 
 const Video = mongoose.model("Video", videoSchema);
 
-exports.findById = (id) => {
+exports.findById = (id, comments = false) => {
 	return Video.findById(id).then((result) => {
 		result = result.toJSON();
 		delete result._id;
 		delete result.__v;
+		if (comments == false) delete result.comments;
 		return result;
 	});
+};
+
+exports.findComments = (id) => {
+	return Video.findById(id)
+		.populate({
+			path: "comments",
+			model: "Comment",
+			populate: {
+				path: "userId",
+				model: "Users",
+				select: "firstName lastName",
+			},
+		})
+		.then((result) => {
+			result = result.toJSON();
+			return result;
+		});
 };
 
 exports.createVideo = (videoData) => {
@@ -82,5 +101,12 @@ exports.patchVideo = (id, videoData) => {
 			_id: id,
 		},
 		videoData
+	);
+};
+
+exports.pushComment = (videoId, commentId) => {
+	return Video.updateOne(
+		{ _id: videoId },
+		{ $push: { comments: commentId } }
 	);
 };

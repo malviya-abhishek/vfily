@@ -75,9 +75,9 @@ exports.videos = (req, res) => {
 	});
 };
 
-exports.home = (req, res) => {
-	res.sendFile(path.join(__dirname, "../../../../index.html"));
-};
+// exports.home = (req, res) => {
+// 	res.sendFile(path.join(__dirname, "../../../../index.html"));
+// };
 
 exports.video = (req, res) => {
 	const range = req.headers.range;
@@ -115,13 +115,15 @@ exports.video = (req, res) => {
 };
 
 exports.videoLink = (req, res) => {
-	VideoModel.findById(req.params.videoId)
+	let comments = false;
+	console.log(req.query);
+	if (req.query.comments == "true") comments = true;
+
+	VideoModel.findById(req.params.videoId, comments)
 		.then((result) => {
-			if (req.jwt.userId != "" + result.userId) {
+			if (req.jwt.userId != "" + result.userId)
 				return res.sendStatus(404);
-			} else {
-				return res.send(result);
-			}
+			else return res.send(result);
 		})
 		.catch((err) => {
 			return res.sendStatus(404);
@@ -132,7 +134,9 @@ exports.sharedPost = (req, res) => {
 	VideoModel.findById(req.params.videoId).then((result) => {
 		if (req.jwt.userId != "" + result.userId) return res.sendStatus(404);
 		else {
-			VideoModel.patchVideo(req.params.videoId, { shared: req.body.shared })
+			VideoModel.patchVideo(req.params.videoId, {
+				shared: req.body.shared,
+			})
 				.then((result) => {
 					res.send({ sharedId: req.params.videoId });
 				})
@@ -146,8 +150,6 @@ exports.sharedPost = (req, res) => {
 exports.sharedGet = (req, res) => {
 	VideoModel.findById(req.params.videoId)
 		.then((result) => {
-
-
 			if (result.shared) {
 				if (req.cookies && req.cookies.token) {
 					return res.send(result);
