@@ -2,8 +2,8 @@
 
 ### Vfily is a video sharing platform on which you can
 - Stream you videos 📺
-- Share them your friends 🎎
-- Use it as a dropbox to save space on your device  ✨
+- Share them with your friends 🎎
+- Share your comments in real time   ✨
 
 ![](images/vfily.gif)
 
