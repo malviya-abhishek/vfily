@@ -49,9 +49,11 @@ yarn add
 yarrn start
 ```
 
-## For API read [api.md](https://github.com/Malviya-abhishek/vfily/blob/master/api.md)
 
 ## For application detail read [detail.md](https://github.com/Malviya-abhishek/vfily/blob/master/detail.md)
+
+## For API read [api.md](https://github.com/Malviya-abhishek/vfily/blob/master/api.md) under dev
+
 
 ## License
 MIT
