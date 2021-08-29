@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { MenuItems } from "./MenuItems";
-import classes from "./Navbar.module.css";
+import "./Navbar.css";
 
 class Navbar extends Component {
 	state = { clicked: false };
@@ -26,6 +26,7 @@ class Navbar extends Component {
 							}
 						></i>
 					</div>
+
 					<ul
 						className={
 							this.state.clicked ? "nav-menu active " : "nav-menu"

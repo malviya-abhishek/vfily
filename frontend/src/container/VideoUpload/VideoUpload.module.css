@@ -37,26 +37,24 @@
 }
 
 input[type="file"] {
-  display: none;
+	display: none;
 }
 
 .lable-file {
-  border: 1px solid #ccc;
-  display: inline-block;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: large;
+	border: 1px solid #ccc;
+	display: inline-block;
+	cursor: pointer;
+	margin-top: 20px;
+	padding: 10px;
+	border-radius: 10px;
+	text-align: center;
+	font-size: large;
 }
 
 .input-file {
 	display: hidden;
-  margin-left: 10px;
+	margin-left: 10px;
 }
-
 
 .sub-btn {
 	font-size: large;
@@ -67,4 +65,5 @@ input[type="file"] {
 	border: transparent;
 	background-color: rgb(120, 120, 252, 0.5);
 	color: white;
+	cursor: pointer;
 }

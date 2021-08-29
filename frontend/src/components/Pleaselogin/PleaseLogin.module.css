@@ -1,25 +1,25 @@
-.wrapper{
-  width: 80%;
-  margin: auto;
-  text-align: center;
+.wrapper {
+	width: max-content;
+	margin: auto;
+	text-align: center;
+	background-color: white;
+	padding-bottom: 20px;
+	margin-top: 50px;
+	border-radius: 50px;
 }
 
-.login-image{
-  max-width: 500px;
-  /* max-width: ; */
-  /* width: 100%; */
+.login-image {
+	border-radius: 50px;
+	max-width: 500px;
 }
 
-.sub-text{
-  margin: 10px;
-  font-size: larger;
+.sub-text {
+	font-size: larger;
+	color: black;
 }
 
-.login-link{
-}
-
-@media screen and (max-width: 960px){
-  .login-image{
-    width: 100%;
-  }
+@media screen and (max-width: 960px) {
+	.login-image {
+		width: 100%;
+	}
 }
