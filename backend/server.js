@@ -67,13 +67,13 @@ io.on("connection", (socket) => {
 	console.log("New connection");
 
 	socket.on("join", (videoId) => {
-		console.log("Joined in", videoId);
+		// console.log("Joined in", videoId);
 		socket.join(videoId);
 	});
 
-	socket.on("disconnect", (res) => {
-		console.log("Disconnect", res);
-	});
+	// socket.on("disconnect", (res) => {
+	// 	// console.log("Disconnect", res);
+	// });
 });
 
 eventEmitter.on("commentCreated", (data) => {
