@@ -1,15 +1,18 @@
 .container {
-  
+	display: block;
+	width: 90%;
+	margin: auto;
+	/* border: 2px solid black; */
 }
 
 .input-comment {
 	border: none;
 	resize: none;
 	height: 50px;
-	width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: rgba(200, 200, 200, .5);
+	width: 90%;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: rgba(200, 200, 200, 0.5);
 }
 
 .sub-btn {
@@ -27,14 +30,29 @@
 }
 
 .comment {
-	background-color: rgba(200, 200, 200, .5);
-  margin-top: 30px;
+	background-color: rgba(200, 200, 200, 0.5);
+	margin-top: 30px;
 	margin-bottom: 20px;
 	padding: 10px;
 	border-radius: 7px;
+	color: black;
 }
 
 .comment div {
 	margin-top: 5px;
 	margin-left: 10px;
+}
+@media screen and (max-width: 410px) {
+	.container {
+		height: 9rem;
+		overflow: scroll;
+	}
+	.comment {
+		background-color: rgba(200, 200, 200, 0.5);
+		margin-top: 10px;
+		margin-bottom: 10px;
+		padding: 10px;
+		border-radius: 7px;
+		color: black;
+	}
 }

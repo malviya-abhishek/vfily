@@ -1,6 +1,7 @@
 .playerBlock {
+	margin-left: 100px;
 	display: grid;
-	grid-template-columns: 65% 35%;
+	grid-template-columns: 70% 30%;
 }
 
 .create-link {
@@ -42,11 +43,13 @@
 }
 
 .comments{
-	margin: 20px;
+	/* width: 100vh; */
+	
 }
 
-@media screen and (max-width: 730px) {
+@media screen and (max-width: 410px) {
 	.playerBlock {
+		margin-left: 0px;
 		display: grid;
 		grid-template-columns: 100%;
 	}

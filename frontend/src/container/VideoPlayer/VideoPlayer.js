@@ -104,6 +104,8 @@ function VideoPlayer(props) {
 				/>
 			</span>
 
+			{/* Share */}
+
 			{props.logged && props.shared !== true ? (
 				<div className={classes["create-link"]}>
 					{state.sharedURL ? (
@@ -138,12 +140,15 @@ function VideoPlayer(props) {
 			) : (
 				<span></span>
 			)}
+			{/* Share end */}
 
+			{/* Comments*/}
 			{props.logged ? (
 				<div className={classes["comments"]}>
 					<Comment videoId={props.match.params.videoId} />
 				</div>
 			) : null}
+			{/* Comments end */}
 		</div>
 	);
 }
