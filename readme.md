@@ -12,6 +12,16 @@
 - Express
 - MongoDB
 
+## Updates
+- Complete UI changed
+- New navbar, background colours
+- More responsive
+![](images/img1.png)
+![](images/img2.png)
+![](images/img3.png)
+![](images/img4.png)
+![](images/img5.png)
+
 ## Installation
 
 ### First setup .env file in the backend folder
