@@ -4,48 +4,77 @@
 	grid-template-columns: 70% 30%;
 }
 
+/* Share */
+
+.shareable {
+	margin-bottom: 5px;
+}
+
 .create-link {
-	padding-top: 10px;
-	padding-bottom: 10px;
-	margin: 20px;
-}
-
-.shared-link {
 	display: grid;
-	grid-template-columns: 80% 20%;
-	margin-top: 10px;
-	padding: 15px;
-	border-radius: 5px;
-	background-color: #ddd;
-	border: blueviolet 2px solid;
+	grid-template-columns: 15% 85%;
 }
 
-.shared-link i {
-	margin: auto;
-	background-color: rgba(77, 63, 252, 1) ;
-	padding: 15px;
-	border-radius: 5px;
-	margin-right: 10px;
+.share-btn {
+	margin: auto 0;
+	height: 60px;
+	font-size: large;
+	border-radius: 5px 0 0 5px;
+	border: transparent;
+	background-color: rgba(77, 63, 252, 1);
 	color: white;
 }
 
-.shared-link i:hover{
+.share-btn:hover {
 	background-color: white;
 	color: rgba(77, 63, 252, 1);
+	transition: 300ms;
 }
 
-.shared-link .sharedURL {
-	margin-left: 10px;
-	margin-top: auto;
-	margin-bottom: auto;
+.shared-link {
+	/* display: grid; */
+	grid-template-columns: 90% 10%;
+	background-color: #ddd;
+	border-radius: 0px 5px 5px 0px;
+	transition: all 600ms;
+}
+
+.share-i {
+	margin-left: 2px;
+	background-color: rgba(77, 63, 252, 1);
+	color: white;
+	border: transparent;
+	border-radius: 0px 5px 5px 0px;
+}
+
+.share-i:hover {
+	background-color: white;
+	color: rgba(77, 63, 252, 1);
+	transition: 300ms;
+}
+
+.sharedURL {
+	font-size: large;
+	margin-left: 7px;
+	margin-top: 5px;
+	height: 40px;
 	color: blue;
-	word-wrap: break-word;
+	overflow-x: scroll;
 }
 
-.comments{
-	/* width: 100vh; */
-	
+.sharedURL::-webkit-scrollbar {
+	height: 5px;
 }
+
+.sharedURL::-webkit-scrollbar-thumb {
+	background: rgb(77, 63, 252);
+}
+
+.sharedURL::-webkit-scrollbar-track {
+	background-color: rgb(255, 255, 30);
+}
+
+/* Share end */
 
 @media screen and (max-width: 410px) {
 	.playerBlock {
@@ -53,19 +82,21 @@
 		display: grid;
 		grid-template-columns: 100%;
 	}
-	.shared-link .sharedURL {
-		margin-left: 5px;
-	}
-	.shared-link i {
-		margin: auto;
-		padding: 15px;
-		margin-right: 0px;
-	}
-	.video{
+	.video {
 		position: sticky;
 		top: 0px;
 		width: 100%;
-	} 
-	
+	}
+	.shareable {
+		margin: 5px 5px;
+	}
 
+	.share-btn:hover {
+		color: white;
+		background-color: rgba(77, 63, 252, 1);
+	}
+	.share-i:hover {
+		color: white;
+		background-color: rgba(77, 63, 252, 1);
+	}
 }

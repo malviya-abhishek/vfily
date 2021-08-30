@@ -16,7 +16,11 @@
 		gap: 1rem;
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 		grid-auto-rows: 240px;
-		max-height: 85vh;
-		overflow: scroll;
+		max-height: 90vh;
+		overflow-y: scroll;
+	}
+	.container::-webkit-scrollbar {
+		display: "none";
+		width: 0;
 	}
 }

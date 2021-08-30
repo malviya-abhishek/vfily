@@ -1,0 +1,61 @@
+.container {
+	display: block;
+	margin: auto;
+}
+
+.wrapper {
+	height: 50px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 90% 10%;
+}
+
+.input-comment {
+	border: none;
+	resize: none;
+  border-radius: 5px 0 0 5px;
+  background-color: rgba(200, 200, 200, 0.5);
+	height: 46px;
+}
+
+.post-btn {
+	height: 50px;
+	float: right;
+	border: transparent;
+  border-radius: 0 5px  5px 0;
+	cursor: pointer;
+	background-color: rgba(200, 200, 200, 0.5);
+}
+
+
+
+.comment {
+	background-color: rgba(200, 200, 200, 0.5);
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding: 10px;
+	border-radius: 7px;
+	color: black;
+  overflow-wrap: break-word;
+}
+
+
+
+@media screen and (max-width: 410px) {
+
+	.container {
+		height: 14rem;
+		overflow: scroll;
+    margin: 0 5px ;
+	}
+	.container::-webkit-scrollbar {
+		width: 0;
+	}
+	.comment {
+		background-color: rgba(200, 200, 200, 0.5);
+		margin-top: 10px;
+		padding: 5px;
+		border-radius: 7px;
+		color: black;
+	}
+}

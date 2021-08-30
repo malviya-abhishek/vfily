@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Player from "../../components/Player/Player";
-import Button from "../../components/Button/Button";
 import Comment from "../Comment/Comment";
 import classes from "./VideoPlayer.module.css";
 import axios from "axios";
@@ -95,60 +94,76 @@ function VideoPlayer(props) {
 
 	return (
 		<div className={classes.playerBlock}>
-			<span className={classes.video}>
-				<Player
-					title={state.title}
-					url={state.url}
-					description={state.description}
-					thumbnail={state.thumbnail}
-				/>
-			</span>
+			{/* Player */}
 
-			{/* Share */}
+			<div>
+				<span className={classes["video"]}>
+					<Player
+						title={state.title}
+						url={state.url}
+						description={state.description}
+						thumbnail={state.thumbnail}
+					/>
+				</span>
+				{/* Player End */}
 
-			{props.logged && props.shared !== true ? (
-				<div className={classes["create-link"]}>
-					{state.sharedURL ? (
-						<>
-							<Button
-								danger={true}
-								onClickHandler={DeleteLinkHandler}
+				{/* Share */}
+
+				{props.logged && props.shared !== true ? (
+					<div className={classes["shareable"]}>
+						<div className={classes["create-link"]}>
+
+							<button
+								className={classes["share-btn"]}
+								onClick={
+									state.sharedURL
+										? DeleteLinkHandler
+										: CreateLinkHandler
+								}
 							>
-								Delete Link
-							</Button>
-
-							<div className={classes["shared-link"]}>
-								<div className={classes.sharedURL}>
-									{state.sharedURL}
-								</div>
 								<i
-									onClick={CopyURL}
 									className={
-										state.copied
-											? "fas fa-check-double"
-											: "far fa-copy"
+										state.sharedURL
+											? "fas fa-trash-alt"
+											: "fas fa-share-alt"
 									}
 								></i>
-							</div>
-						</>
-					) : (
-						<Button onClickHandler={CreateLinkHandler}>
-							Share link
-						</Button>
-					)}
-				</div>
-			) : (
-				<span></span>
-			)}
-			{/* Share end */}
+							</button>
 
-			{/* Comments*/}
-			{props.logged ? (
-				<div className={classes["comments"]}>
-					<Comment videoId={props.match.params.videoId} />
-				</div>
-			) : null}
-			{/* Comments end */}
+							{/* {state.sharedURL ? ( */}
+
+								<div style={ state.sharedURL ? { display:"grid" } : {display:"none"} }  className={classes["shared-link"]}>
+									<div className={classes["sharedURL"]}>
+										{state.sharedURL}
+									</div>
+
+									<button
+										className={classes["share-i"]}
+										onClick={CopyURL}
+									>
+										<i
+											className={"far fa-copy"}
+											style={{ fontSize: "large" }}
+										></i>
+									</button>
+								</div>
+							{/* ) : null} */}
+
+						</div>
+					</div>
+				) : null}
+				{/* Share end */}
+
+				{/* Comments*/}
+				{props.logged ? (
+					<div className={classes["comments"]}>
+						<Comment videoId={props.match.params.videoId} />
+					</div>
+				) : null}
+				{/* Comments end */}
+			</div>
+
+			<span></span>
 		</div>
 	);
 }

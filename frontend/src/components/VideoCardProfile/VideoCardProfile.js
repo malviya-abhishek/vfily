@@ -25,6 +25,7 @@ function VideoCardProfile(props) {
 			<Link to={`/video/${props.id}`} >
 			<img className={classes["video-img"]} src={props.thumbnail} />
 			</Link>
+			
 			<div className={classes.details}>
 				<div>
 					{props.title.slice(0, Math.min(props.title.length, 10))}
@@ -33,6 +34,7 @@ function VideoCardProfile(props) {
 					<ShareButton clickHandler={makePrivate} shared={shared} />
 				</div>
 			</div>
+
 		</div>
 	);
 }

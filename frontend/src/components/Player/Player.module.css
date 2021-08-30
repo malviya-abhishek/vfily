@@ -1,15 +1,14 @@
 .playerWrapper {
-	margin: 10px;
-	margin-left: 30px;
-	background-color: rgb(255, 255, 30);
+	padding-top: 30px;	
 	padding-bottom: 5px;
+	background-color: rgb(255, 255, 30);
 	border-bottom: 2px rgb(255, 255, 40) solid;
 }
 
 .Player {
 	width: 100%;
 	height: 555px;
-	background-color:#000;
+	background-color: #000;
 }
 
 .title {
@@ -26,12 +25,12 @@
 	color: #000;
 }
 
-@media screen and (max-width: 730px) {
+@media screen and (max-width: 410px) {
 	.playerWrapper {
-		margin: 0;
+		padding-top: 0;	
 	}
 	.Player {
-		background-color: rgb(255, 255, 30);;
+		background-color: #000 ;
 		margin: 0;
 		width: 100%;
 		height: 200px;
