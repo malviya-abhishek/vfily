@@ -18,8 +18,14 @@
 	color: black;
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 410px) {
+	.wrapper {
+		margin-top: 10px;
+	}
+
 	.login-image {
-		width: 100%;
+		max-width: 300px;
+
+		/* width: 80%; */
 	}
 }

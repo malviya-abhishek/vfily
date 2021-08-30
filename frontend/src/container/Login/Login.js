@@ -67,6 +67,7 @@ class Login extends Component {
 				localStorage.setItem("logged", "1");
 			})
 			.catch((err) => {
+				this.setState({ message: "User does not exist" });
 				console.log("[User request]", err.response, err);
 			});
 	};
