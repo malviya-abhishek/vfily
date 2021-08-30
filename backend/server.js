@@ -64,7 +64,7 @@ const io = require("socket.io")(httpServer, {
 });
 
 io.on("connection", (socket) => {
-	console.log("New connection");
+	// console.log("New connection");
 
 	socket.on("join", (videoId) => {
 		// console.log("Joined in", videoId);
