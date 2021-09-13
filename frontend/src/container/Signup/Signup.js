@@ -101,8 +101,8 @@ class Signup extends Component {
 				};
 				this.loginHandler(loginData);
 			})
-			.catch((err, msg) => {
-				console.log(err.response.data);
+			.catch((err) => {
+				console.log(err.response);
 			});
 	};
 
