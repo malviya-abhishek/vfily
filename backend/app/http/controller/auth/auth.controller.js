@@ -17,8 +17,6 @@ exports.login = (req, res) => {
 
 		req.body.refreshKey = salt;
 
-
-
 		let token = jwt.sign(req.body, JWT_SECRET);
 
 		let b = Buffer.from(hash);
@@ -28,8 +26,9 @@ exports.login = (req, res) => {
 		return res
 			.status(202)
 			.cookie("token", token, {
-				sameSite: "strict",
+				sameSite: "none",
 				path: "/",
+				secure: true,
 				// expires: new Date(new Date().getTime() + 100 * 1000),
 				httpOnly: true,
 			})

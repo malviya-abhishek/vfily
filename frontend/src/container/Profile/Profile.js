@@ -66,6 +66,7 @@ function Profile(props) {
 				<img
 					className={classes["profile-img"]}
 					src="images/default_profile.png"
+					alt=""
 				/>
 				<div className={classes.name}>{user.firstName}</div>
 			</div>

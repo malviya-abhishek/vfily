@@ -15,13 +15,13 @@ function Comment(props) {
 			let t = e.target.value;
 			if (t.length < 201) setNewComment(t);
 		},
-		[newComment]
+		[] // newComment
 	);
 
 	const commentUploadHandler = useCallback(
 		(e) => {
 			e.preventDefault();
-			if (newComment.length == 0) return;
+			if (newComment.length === 0) return;
 			const data = {
 				videoId: props.videoId,
 				content: newComment,

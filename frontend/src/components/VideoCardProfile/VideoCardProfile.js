@@ -23,7 +23,7 @@ function VideoCardProfile(props) {
 		<div className={classes.container}>
 
 			<Link to={`/video/${props.id}`} >
-			<img className={classes["video-img"]} src={props.thumbnail} />
+			<img className={classes["video-img"]} src={props.thumbnail} alt="profilepic" />
 			</Link>
 			
 			<div className={classes.details}>

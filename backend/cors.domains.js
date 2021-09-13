@@ -1,1 +1,1 @@
-exports.domains = ["http://13.235.246.136", "http://localhost:3000"];
+exports.domains = ["http://13.235.246.136", "http://localhost:3000", "http://127.0.0.1:3000"];

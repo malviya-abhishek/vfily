@@ -3,7 +3,6 @@ import VideoCard from "../../components/VideoCard/VideoCard";
 import classes from "./VideoPallet.module.css";
 import PleaseLogin from "../../components/Pleaselogin/PleaseLogin";
 import axios from "axios";
-import config from "./../../config";
 
 axios.defaults.withCredentials = true;
 

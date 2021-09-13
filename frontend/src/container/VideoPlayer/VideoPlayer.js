@@ -34,7 +34,7 @@ function VideoPlayer(props) {
 					thumbnail:
 						"http://localhost:3030/images/" + result.data.thumbnail,
 					sharedURL: result.data.shared
-						? `http://localhost:3000/video/shared/${props.match.params.videoId}`
+						? ` ${window.location.hostname}/video/shared/${props.match.params.videoId}`
 						: state.sharedURL,
 					copied: state.copied,
 				});
@@ -112,7 +112,6 @@ function VideoPlayer(props) {
 				{props.logged && props.shared !== true ? (
 					<div className={classes["shareable"]}>
 						<div className={classes["create-link"]}>
-
 							<button
 								className={classes["share-btn"]}
 								onClick={
@@ -132,23 +131,29 @@ function VideoPlayer(props) {
 
 							{/* {state.sharedURL ? ( */}
 
-								<div style={ state.sharedURL ? { display:"grid" } : {display:"none"} }  className={classes["shared-link"]}>
-									<div className={classes["sharedURL"]}>
-										{state.sharedURL}
-									</div>
-
-									<button
-										className={classes["share-i"]}
-										onClick={CopyURL}
-									>
-										<i
-											className={"far fa-copy"}
-											style={{ fontSize: "large" }}
-										></i>
-									</button>
+							<div
+								style={
+									state.sharedURL
+										? { display: "grid" }
+										: { display: "none" }
+								}
+								className={classes["shared-link"]}
+							>
+								<div className={classes["sharedURL"]}>
+									{state.sharedURL}
 								</div>
-							{/* ) : null} */}
 
+								<button
+									className={classes["share-i"]}
+									onClick={CopyURL}
+								>
+									<i
+										className={"far fa-copy"}
+										style={{ fontSize: "large" }}
+									></i>
+								</button>
+							</div>
+							{/* ) : null} */}
 						</div>
 					</div>
 				) : null}
