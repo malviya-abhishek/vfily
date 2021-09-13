@@ -1,5 +1,5 @@
 # Vfily ✨
-## Demo [Vfily](http://13.235.246.136/)
+## Demo [Vfily](https://vfily.xyz/)
 
 ### Vfily is a video sharing platform on which you can
 - Stream you videos 📺
