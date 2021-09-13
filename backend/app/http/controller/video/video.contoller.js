@@ -163,7 +163,7 @@ exports.sharedGet = (req, res) => {
 							expires: new Date(
 								new Date().getTime() + 100 * 1000
 							),
-							// httpOnly: true,
+							httpOnly: true,
 						})
 						.send(result);
 				}
