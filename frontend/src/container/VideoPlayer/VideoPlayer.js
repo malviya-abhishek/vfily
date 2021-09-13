@@ -68,7 +68,7 @@ function VideoPlayer(props) {
 			.then((result) => {
 				setState({
 					...state,
-					sharedURL: `http://localhost:3000/video/shared/${result.data.sharedId}`,
+					sharedURL: `${window.location.hostname}/video/shared/${result.data.sharedId}`,
 				});
 			})
 			.catch((err) => {});

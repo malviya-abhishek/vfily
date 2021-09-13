@@ -157,8 +157,9 @@ exports.sharedGet = (req, res) => {
 					return res
 						.status(202)
 						.cookie("token", token, {
-							sameSite: "strict",
+							sameSite: "none",
 							path: "/",
+							secure: true,
 							expires: new Date(
 								new Date().getTime() + 100 * 1000
 							),
