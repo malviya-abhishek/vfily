@@ -30,7 +30,7 @@ exports.login = (req, res) => {
 				path: "/",
 				secure: true,
 				// expires: new Date(new Date().getTime() + 100 * 1000),
-				httpOnly: true,
+				// httpOnly: true,
 			})
 			.send({ ...req.body });
 	} catch (err) {
