@@ -15,9 +15,12 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const whitelist = require("./cors.domains").domains;
+
+
 app.use(
 	cors({
-		origin: "http://localhost:3000",
+		origin: whitelist,
 		credentials: true,
 	})
 );
@@ -58,7 +61,7 @@ httpServer.listen(process.env.PORT, () => {
 // socket connection
 const io = require("socket.io")(httpServer, {
 	cors: {
-		origin: "http://localhost:3000",
+		origin: whitelist,
 		credentials: true,
 	},
 });
@@ -79,5 +82,3 @@ io.on("connection", (socket) => {
 eventEmitter.on("commentCreated", (data) => {
 	io.to(`video_${data.videoId}`).emit("commentCreated", data);
 });
-
-
