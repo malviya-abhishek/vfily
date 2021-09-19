@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const uuid = require("uuid");
 
+const cookieSetting = require("../../../../cookie.setting");
+
 exports.login = (req, res) => {
 	try {
 		let refreshId = req.body.userId + JWT_SECRET;
@@ -25,12 +27,7 @@ exports.login = (req, res) => {
 
 		return res
 			.status(202)
-			.cookie("token", token, {
-				sameSite: "none",
-				path: "/",
-				secure: true,
-				httpOnly: true,
-			})
+			.cookie("token", token, cookieSetting)
 			.send({ ...req.body });
 	} catch (err) {
 		return res.status(500).send({ error: err });
