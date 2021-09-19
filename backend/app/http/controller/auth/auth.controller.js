@@ -7,7 +7,7 @@ const uuid = require("uuid");
 
 const cookieSetting = require("../../../../cookie.setting").cookieSetting;
 
-console.log(cookieSetting);
+
 
 exports.login = (req, res) => {
 	try {
