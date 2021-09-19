@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import classes from "./VideoUpload.module.css";
-import axios from "axios";
+import axios from "../../axios/index";
+import config from "../../config";
+const API_URL = config.API_URL;
 
-const endpoint = "http://localhost:3030/upload";
 
 class VideoUpload extends Component {
 	state = {
@@ -73,7 +74,7 @@ class VideoUpload extends Component {
 		};
 
 		axios
-			.post(endpoint, data, config, {
+			.post('/upload', data, config, {
 				onUploadProgress: (ProgressEvent) => {
 					this.setState({
 						message:

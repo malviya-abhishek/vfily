@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import VideoCard from "../../components/VideoCard/VideoCard";
 import classes from "./VideoPallet.module.css";
 import PleaseLogin from "../../components/Pleaselogin/PleaseLogin";
-import axios from "axios";
+
+import axios from "../../axios/index";
+import config from "../../config";
+
+const API_URL = config.API_URL;
 
 axios.defaults.withCredentials = true;
-
-const endpoint = "http://localhost:3030/videos";
-// const endpoint = config.API_URL;
 
 function VideoPallet(props) {
 	const [list, setList] = useState([]);
@@ -15,7 +16,7 @@ function VideoPallet(props) {
 	useEffect(() => {
 		if (props.logged) {
 			axios
-				.get(endpoint, { withCredentials: true })
+				.get("/videos", { withCredentials: true })
 				.then((list) => {
 					const temp = [];
 					list.data.forEach((element) => {
@@ -24,8 +25,7 @@ function VideoPallet(props) {
 								key={element.id}
 								id={element.id}
 								thumbnail={
-									"http://localhost:3030/images/" +
-									element.thumbnail
+									API_URL + "/images/" + element.thumbnail
 								}
 								title={element.title}
 							/>

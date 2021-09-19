@@ -1,10 +1,10 @@
-import axios from "axios";
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import classes from "./Signup.module.css";
+import axios from "../../axios/index";
+import config from "../../config";
+const API_URL = config.API_URL;
 
-const endpoint = "http://localhost:3030/users";
-const endpointAuth = "http://localhost:3030/auth";
 
 class Signup extends Component {
 	state = {
@@ -19,7 +19,7 @@ class Signup extends Component {
 
 	loginHandler = (data) => {
 		axios
-			.post(endpointAuth, data)
+			.post("/auth", data)
 			.then((result) => {
 				this.props.setName(result.data.name);
 				this.props.setLogged(1);
@@ -93,7 +93,7 @@ class Signup extends Component {
 		};
 
 		axios
-			.post(endpoint, data)
+			.post('/users', data)
 			.then((result) => {
 				const loginData = {
 					email: data.email,

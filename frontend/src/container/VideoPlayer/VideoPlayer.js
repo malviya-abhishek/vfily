@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import Player from "../../components/Player/Player";
 import Comment from "../Comment/Comment";
 import classes from "./VideoPlayer.module.css";
-import axios from "axios";
+
+import axios from "../../axios/index";
+import config from "../../config";
+const API_URL = config.API_URL;
+
 axios.defaults.withCredentials = true;
 
 function VideoPlayer(props) {
@@ -16,10 +20,7 @@ function VideoPlayer(props) {
 	});
 
 	useEffect(() => {
-		const basePoint = "http://localhost:3030";
-
 		const videoEndPoint =
-			basePoint +
 			"/videos/" +
 			(props.shared ? "shared/" : "") +
 			props.match.params.videoId;
@@ -28,11 +29,10 @@ function VideoPlayer(props) {
 			.get(videoEndPoint, { withCredentials: true })
 			.then((result) => {
 				setState({
-					url: "http://localhost:3030/video/" + result.data.url,
+					url: API_URL + "/video/" + result.data.url,
 					title: result.data.title,
 					description: result.data.description,
-					thumbnail:
-						"http://localhost:3030/images/" + result.data.thumbnail,
+					thumbnail: API_URL + "/images/" + result.data.thumbnail,
 					sharedURL: result.data.shared
 						? ` ${window.location.hostname}/video/shared/${props.match.params.videoId}`
 						: state.sharedURL,
@@ -61,7 +61,7 @@ function VideoPlayer(props) {
 		const data = { shared: true };
 		axios
 			.post(
-				`http://localhost:3030/videos/shared/${props.match.params.videoId}`,
+				API_URL + "/videos/shared/" + props.match.params.videoId,
 				data,
 				{ withCredentials: true }
 			)
@@ -78,7 +78,8 @@ function VideoPlayer(props) {
 		const data = { shared: false };
 		axios
 			.post(
-				`http://localhost:3030/videos/shared/${props.match.params.videoId}`,
+				API_URL + "/videos/shared/" + props.match.params.videoId,
+
 				data,
 				{ withCredentials: true }
 			)

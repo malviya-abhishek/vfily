@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import classes from "./Profile.module.css";
 import VideoCardProfile from "../../components/VideoCardProfile/VideoCardProfile";
 
-const endpoint = "http://localhost:3030/users/usercookie";
+import axios from "../../axios/index";
+import config from "../../config";
+const API_URL = config.API_URL;
+
 function Profile(props) {
 	const [user, setUser] = useState({});
 	const [videos, setVideos] = useState([]);
@@ -11,7 +13,7 @@ function Profile(props) {
 	function DeleteLinkHandler(id) {
 		const data = { shared: false };
 		axios
-			.post(`http://localhost:3030/videos/shared/${id}`, data, {
+			.post(`${API_URL}/videos/shared/${id}`, data, {
 				withCredentials: true,
 			})
 			.then((result) => {})
@@ -22,7 +24,7 @@ function Profile(props) {
 		const data = {shared: true};
 		axios
 			.post(
-				`http://localhost:3030/videos/shared/${id}`,
+				`${API_URL}/videos/shared/${id}`,
 				data,
 				{ withCredentials: true }
 			)
@@ -33,7 +35,7 @@ function Profile(props) {
 
 	useEffect(() => {
 		axios
-			.get(endpoint, { withCredentials: true })
+			.get("/users/usercookie", { withCredentials: true })
 			.then((result) => {
 				setUser(result.data.user);
 				const temp = [];
@@ -46,7 +48,7 @@ function Profile(props) {
 							id={element.id}
 							shared={element.shared}
 							thumbnail={
-								"http://localhost:3030/images/" +
+								`${API_URL}/images/` +
 								element.thumbnail
 							}
 							title={element.title}

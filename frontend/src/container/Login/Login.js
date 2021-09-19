@@ -1,10 +1,13 @@
-import axios from "axios";
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import classes from "./Login.module.css";
+
+import axios from "../../axios/index";
+import config from "../../config";
+const API_URL = config.API_URL;
+
 axios.defaults.withCredentials = true;
 
-const endpoint = "http://localhost:3030/auth";
 
 class Login extends Component {
 	state = {
@@ -58,7 +61,7 @@ class Login extends Component {
 		};
 
 		axios
-			.post(endpoint, data)
+			.post("/auth", data)
 			.then((result) => {
 				let name = result.data.name.split(" ")[0];
 				this.props.setName(name);
