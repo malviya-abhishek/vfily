@@ -5,7 +5,7 @@ require("dotenv").config();
 const JWT_SECRET = process.env.JWT_SECRET;
 const jwt = require("jsonwebtoken");
 
-const cookieSetting = require("../../../../cookie.setting");
+const cookieSetting = require("../../../../cookie.setting").cookieSetting;;
 
 cookieSetting["expires"] = new Date(new Date().getTime() + 100 * 1000);
 

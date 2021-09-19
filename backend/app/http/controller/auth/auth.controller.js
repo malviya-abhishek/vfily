@@ -5,7 +5,9 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const uuid = require("uuid");
 
-const cookieSetting = require("../../../../cookie.setting");
+const cookieSetting = require("../../../../cookie.setting").cookieSetting;
+
+console.log(cookieSetting);
 
 exports.login = (req, res) => {
 	try {
@@ -27,7 +29,7 @@ exports.login = (req, res) => {
 
 		return res
 			.status(202)
-			.cookie("token", token, cookieSetting)
+			.cookie("token", token, cookieSetting )
 			.send({ ...req.body });
 	} catch (err) {
 		return res.status(500).send({ error: err });
