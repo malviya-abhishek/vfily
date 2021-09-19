@@ -8,8 +8,6 @@ import config from "../../config";
 
 const API_URL = config.API_URL;
 
-axios.defaults.withCredentials = true;
-
 function VideoPallet(props) {
 	const [list, setList] = useState([]);
 

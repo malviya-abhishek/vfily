@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
-import axios from "axios";
 import classes from "./Comment.module.css";
 import { socket } from "../../context/socket";
 
-const endPoint = "http://localhost:3030";
+import axios from "../../axios/index";
+
+
 
 function Comment(props) {
 	const [comments, setComments] = useState([]);
@@ -28,7 +29,7 @@ function Comment(props) {
 			};
 
 			axios
-				.post(endPoint + "/comments", data, {
+				.post( "/comments", data, {
 					withCredentials: true,
 				})
 				.then((result) => {
@@ -42,9 +43,8 @@ function Comment(props) {
 	// Using as component did mount
 	useEffect(() => {
 		socket.emit("join", `video_${props.videoId}`);
-		const commentEndPoint = endPoint + "/comments";
 		axios
-			.get(commentEndPoint, {
+			.get("/comments", {
 				withCredentials: true,
 				params: {
 					videoId: props.videoId,
