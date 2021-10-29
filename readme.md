@@ -1,5 +1,5 @@
 # Vfily ✨
-## Demo [Vfily](https:vfily.xyz) Link is out of order
+## Demo [Vfily](https://vfily.xyz) Link is out of order
 
 ### Vfily is a video sharing platform on which you can
 - Stream you videos 📺
