@@ -5,9 +5,8 @@ require("dotenv").config();
 const JWT_SECRET = process.env.JWT_SECRET;
 const jwt = require("jsonwebtoken");
 
-const cookieSetting = require("../../../../cookie.setting").cookieSetting;;
+const cookieSetter = require("../../../../cookie.setting").cookieSetter;
 
-cookieSetting["expires"] = new Date(new Date().getTime() + 100 * 1000);
 
 exports.upload = (req, res) => {
 	const newVideo = {};
@@ -160,7 +159,7 @@ exports.sharedGet = (req, res) => {
 					let token = jwt.sign({ userId: "temporary" }, JWT_SECRET);
 					return res
 						.status(202)
-						.cookie("token", token, cookieSetting)
+						.cookie("token", token, cookieSetter())
 						.send(result);
 				}
 			} else return res.sendStatus(404);

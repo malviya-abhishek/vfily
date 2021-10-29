@@ -7,7 +7,7 @@ import axios from "../../axios/index";
 import config from "../../config";
 const API_URL = config.API_URL;
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 function VideoPlayer(props) {
 	const [state, setState] = useState({
@@ -34,7 +34,7 @@ function VideoPlayer(props) {
 					description: result.data.description,
 					thumbnail: API_URL + "/images/" + result.data.thumbnail,
 					sharedURL: result.data.shared
-						? ` ${window.location.hostname}/video/shared/${props.match.params.videoId}`
+						? `localhost:3000/video/shared/${props.match.params.videoId}`
 						: state.sharedURL,
 					copied: state.copied,
 				});
@@ -68,7 +68,7 @@ function VideoPlayer(props) {
 			.then((result) => {
 				setState({
 					...state,
-					sharedURL: `${window.location.hostname}/video/shared/${result.data.sharedId}`,
+					sharedURL: `localhost:3000/video/shared/${result.data.sharedId}`,
 				});
 			})
 			.catch((err) => {});
